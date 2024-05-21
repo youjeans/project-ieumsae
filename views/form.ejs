@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en, ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>일기 쓰기</title>
+</head>
+<body>
+    <h3>일기 쓰기</h3>
+        <form action="/postForm" method="post" name="getform">
+            <input type="text" name="id" value="김철수" readonly required>
+            <select name="friend">
+                <% for (let i = 1; i<=12; i++) { %>
+                    <option value="<%= i %>"><%= i %></option>
+                <% } %>
+            </select>
+
+            <br>
+            <textarea name="content" rows="60" cols="100" required></textarea>
+
+            <button type="submit">전송</button>
+        </form>
+</body>
+</html>
