@@ -12,6 +12,8 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            margin: 0;
+            padding: 0 20px;
         }
         .signup-form {
             background-color: #fff;
@@ -19,6 +21,7 @@
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 300px;
+            box-sizing: border-box;
         }
         .signup-form h2 {
             margin-bottom: 20px;
@@ -30,6 +33,7 @@
             margin-bottom: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            box-sizing: border-box;
         }
         .signup-form button {
             width: 100%;
@@ -39,9 +43,22 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            box-sizing: border-box;
         }
         .signup-form button:hover {
             background-color: #218838;
+        }
+        .signup-form .links {
+            display: flex;
+            justify-content: space-between;
+        }
+        .signup-form .links a {
+            color: #007BFF;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .signup-form .links a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -74,7 +91,10 @@
             <option value = "9">스타/연예인</option>
         </select>
         <button type="submit">회원가입</button>
-        
+        <div class="links">
+            <a href="/signup/login">로그인</a>
+            <a href="/signup/deletePage">회원탈퇴</a>
+        </div>
     </form>
 
 </body>

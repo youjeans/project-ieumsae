@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원탈퇴 페이지</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0 20px;
+        }
+        .delete-form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            box-sizing: border-box;
+        }
+        .delete-form h2 {
+            margin-bottom: 20px;
+        }
+        .delete-form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .delete-form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-sizing: border-box;
+        }
+        .delete-form button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+
+    <form class="delete-form" action="/signup/delete" method="post">
+        <h2>회원탈퇴</h2>
+        <input type="text" name="username" placeholder="아이디" required>
+        <input type="password" name="password" placeholder="비밀번호" required>
+        <input type="password" name="password2" placeholder="비밀번호 확인" required>
+        <button type="submit">회원탈퇴</button>
+    </form>
+
+</body>
+</html>
