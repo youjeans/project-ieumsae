@@ -2,33 +2,33 @@ const {DataTypes} = require('sequelize');
 const sequelize = require('../config/database');
 
 const diaryExchange = sequelize.define('diaryExchange',{
-    exchangeNum: {
+    exchangeNum: { // 교환 기록 번호
         type: DataTypes.INTEGER,
         allowNull: false,
         unique: true,
         primaryKey: true
     },
-    diaryNum: {
+    diaryNum: { // 일기 번호
         type: DataTypes.INTEGER,
         allowNull: false, 
     },
-    sendNum: {
+    sendNum: { // 송산자 번호
         type: DataTypes.INTEGER,
         allowNull: false,
     },
-    getNum: {
+    getNum: { // 수신자 번호
         type: DataTypes.INTEGER,
         allowNull: false,
     },
-    sendDate: {
+    sendDate: { // 송신 일시
         type: DataTypes.DATE,
         allowNull: false,
     },
-    getDate: {
+    getDate: { // 수신 일시
         type: DataTypes.DATE,
         allowNull: false,
     },
-    viewYN: {
+    viewYN: { // 조회 여부
         type: DataTypes.INTEGER,
         allowNull: false,
         

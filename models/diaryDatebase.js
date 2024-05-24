@@ -2,51 +2,45 @@ const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
 
 const diaryDatebase = sequelize.define('diaryDatebase', {
-    /*
-    일기 번호, 작성자 번호, 수신자 번호, 일기 내용
-    일기 작성일, 일기 송신일, 일기 수신일, 일기 송신 시간 설정
-    교환 대상, 일기 교환 여부
-    모델 정의
-    */
-    diaryNum : {
+    diaryNum : { // 일기 번호
         type: DateTypes.INTEGER,
         allowNull: false,
-        primaryKey: true,
-        autoIncrement: true
+        primaryKey: true, // 기본키
+        autoIncrement: true // 추가시 자동으로 1씩 증가하는 옵션
     },
-    senderNum : {
+    sendNum : { // 작성자 번호
         type: DateTypes.INTEGER,
         allowNull: false,
     },
-    receiverNum : {
+    getNum : { // 교환 대상 번호
         type: DateTypes.INTEGER,
         allowNull: false,
     },
-    diaryDetail : {
+    diaryDetail : { // 일기 내용
         type: DateTypes.TEXT,
         allowNull: false,
     },
-    writeDate : {
+    writeDate : { // 일기 작성일
         type: DateTypes.DATETIME,
         allowNull: false,
     },
-    sendDate : {
+    sendDate : { // 일기 송신일
         type: DateTypes.DATETIME,
         allowNull: false,
     },
-    getDate : {
+    getDate : { // 일기 수신일
         type: DateTypes.DATETIME,
         allowNull: false,
     },
-    sendTime : {
+    sendTime : { // 일기 송신 시간 설정
         type: DateTypes.DATETIME,
         allowNull: false,
     },
-    sendType : {
+    sendType : { // 교환 유형
         type: DateTypes.INTEGER,
         allowNull: false,
     },
-    receiveCheck : {
+    getCheck : { // 수신 여부
         type: DateTypes.INTEGER,
         allowNull: false,
     }
