@@ -1,4 +1,6 @@
 var db = require('../config/mysql');
+const crypto = require('crypto');
+const salt = require('../config/salt')
 
 exports.displayloginPage = (req, res) => {
     res.render("login");
@@ -12,8 +14,10 @@ exports.login = (req, res) => {
     const id = req.body.아이디;
     const pw = req.body.비밀번호;
 
+    const hashedpw = crypto.pbkdf2Sync(pw, salt, 1000, 64, 'sha512').toString('hex');
+
     const sql = 'select * from 사용자  where 아이디=? and 비밀번호=? '
-    const values = [id, pw];
+    const values = [id, hashedpw];
 
     db.query(sql, values, function(err, result){
         if(err) throw err;

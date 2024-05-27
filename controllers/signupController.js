@@ -1,6 +1,7 @@
 const crypto = require('crypto');
 var db = require('../config/mysql');
-const salt = crypto.randomBytes(16).toString('hex');
+const salt = require('../config/salt')
+
 
 exports.displaysignupPage = (req, res) => {
     res.render("signup");
