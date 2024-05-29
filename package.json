@@ -34,6 +34,7 @@
     "etag": "^1.8.1",
     "express": "^4.19.2",
     "express-ejs-layouts": "^2.5.1",
+    "express-session": "^1.18.0",
     "filelist": "^1.0.4",
     "finalhandler": "^1.2.0",
     "forwarded": "^0.2.0",

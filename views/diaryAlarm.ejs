@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>일기 알람</title>
+</head>
+<body>
+    <h1>일기 알람</h1>
+    <ul>
+        <% result.map(function(alarm) { %>
+            <ul>
+                <li>교환일기를 보낸 사람: <%= alarm.송신자_번호 %></li>
+                <li>교환일기가 도착한 시간: <%= alarm.수신일시 %> </li>
+            </ul>
+            <a href="/diaryAlarm/<%= alarm.교환기록_번호 %>">해당 교환일기로 이동</a>
+            <br>
+        <% }); %>
+    </ul>
+</body>
+</html>
