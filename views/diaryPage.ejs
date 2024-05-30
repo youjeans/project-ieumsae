@@ -4,25 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>일기 페이지</title>
-    <link rel="stylesheet" href="css/diarystyle.css">
 </head>
 <body>
     <h1>일기 페이지</h1>
-    <ul>
-        <% result.map(function(diary) { %>
-            <li>
-                <ul>
-                    <li>교환일기 작성자: <%= diary.작성자_번호 %></li>
-                    <li>교환일기 대상 유형: <%= diary.교환유형 %></li>
-                    <li>교환일기 수신일: <%= diary.일기_송신일 %> </li>
-                </ul>
-                <br>
-                <div>
-                    <%= diary.일기_내용 %>
-                </div>
-                <br>
-            </li>
-        <% }); %>
-    </ul>
+    <% result.map(function(diary) { %>
+        <p>작성자: <%= diary.작성자_이름 %></p>
+        <p>작성자 유형: <%= diary.교환유형 %></p>
+        <p><%= diary.일기_송신일 %></p>
+        <section>
+            <%= diary.일기_내용 %>
+        </section>
+    <% }); %>
 </body>
 </html>

@@ -7,15 +7,12 @@
 </head>
 <body>
     <h1>일기 알람</h1>
-    <ul>
-        <% result.map(function(alarm) { %>
-            <ul>
-                <li>교환일기를 보낸 사람: <%= alarm.송신자_번호 %></li>
-                <li>교환일기가 도착한 시간: <%= alarm.수신일시 %> </li>
-            </ul>
-            <a href="/diaryAlarm/<%= alarm.교환기록_번호 %>">해당 교환일기로 이동</a>
-            <br>
-        <% }); %>
-    </ul>
+    <% result.map(function(alarm) { %>
+        <section>
+            <div><p>전송자: <%= alarm.송신자_이름 %></p><div>
+            <div><p>도착 일시: <%= alarm.수신일시 %></p></div>
+            <button href="/diaryAlarm/<%= alarm.교환기록_번호 %>">OPEN</button>
+        <section>
+    <% }); %>
 </body>
 </html>

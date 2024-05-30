@@ -7,12 +7,9 @@
 </head>
 <body>
     <% result.forEach(function(page) { %>
-        <h1>교환기록 번호 <%= page.작성자_번호 %>번과의 일기 페이지</h1>
-        <ul>
-            <li>해당 교환 유형: <%= page.교환유형 %></li>
-            <li>해당 일기 수신일: <%= page.일기_송신일 %></li>
-        </ul>
-        <br>
+        <h1><%= page.작성자_이름 %>와/과의 일기 페이지</h1>
+        <p>작성자 유형: <%= page.교환유형 %></p>
+        <p><%= page.일기_송신일 %></p>
         <div>
             <%= page.일기_내용 %>
         </div>
