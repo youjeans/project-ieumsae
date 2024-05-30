@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나에게 보낸 일기</title>
+</head>
+<body>
+    <h1>나에게 보낸 일기</h1>
+    <% result.forEach(mine => { >%
+        <p><%= mine.일기_송신일 %></p>
+        <section><%= mine.일기_내용 %></section>
+    <% }) %>
+</body>
+</html>

@@ -7,8 +7,28 @@ exports.displaySample = (req, res) => {
     res.render('displaySample', {data});
 }
 
+// 나와의 일기 페이지를 보여준다.
+exports.displayMine = (req, res) => {
+    // 로그인 중인지, 회원번호 접근 가능한지 확인
+    if (!req.session.member || !req.session.member.회원번호) {
+        return res.status(401).send("<script> alert('로그인이 필요합니다.'); location.href = '/login';</script>");
+    }
+    const query = 'SELECT 일기_송신일, 일기_내용 FROM 일기 WHERE 교환유형 = 0 AND 작성자_번호 = ? '
+    const values = [req.session.member.회원번호];
+    database.query(query, values, (err, result) => {
+        const transResultData = transResult(result);
+        res.render('diaryMine', {result: transResultData});
+        console(transResultData);
+    });
+};
+
 // 일기 페이지를 보여준다.
 exports.displayPage = (req, res) => {
+    // 로그인 중인지, 회원번호 접근 가능한지 확인
+    if (!req.session.member || !req.session.member.회원번호) {
+        return res.status(401).send("<script> alert('로그인이 필요합니다.'); location.href = '/login';</script>");
+    }
+
     const exchange = parseInt(req.params.exchange, 10); // params는 문자열로 받음 -> int로 변환
     if (isNaN(exchange)) {
         console.error('params 로 받은 exchange 에 문제 발생: ', req.params.exchange);

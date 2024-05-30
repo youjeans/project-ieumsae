@@ -49,8 +49,19 @@ app.use('/diaryPage', diaryPageRouters);
 const diaryAlarmRouters = require('./routes/diaryAlarmRouters'); // diaryAlarm 라우트 등록
 app.use('/diaryAlarm', diaryAlarmRouters);
 
+const {getExchangePartners} = require('./controllers/exchangePartners');
+app.use((req, res, next) => { 
+    if (!req.session.member || !req.session.member.회원번호) { // 로그인 상태에서만 접근 가능하도록 설정
+        next();
+    } else {
+        getExchangePartners(req, res, ()=> {
+            next();
+        });
+    }
+});
+
 app.get('/', (req, res) => {
-    res.render('test')
+    res.render('test', {exchangePartners: req.exchangePartners })
 });
 
 app.get('/form', (req, res) => {
