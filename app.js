@@ -49,6 +49,7 @@ app.use('/diaryPage', diaryPageRouters);
 const diaryAlarmRouters = require('./routes/diaryAlarmRouters'); // diaryAlarm 라우트 등록
 app.use('/diaryAlarm', diaryAlarmRouters);
 
+// 메인 페이지에서 책을 동적으로 증가시키기 위해 사용
 const {getExchangePartners} = require('./controllers/exchangePartners');
 app.use((req, res, next) => { 
     if (!req.session.member || !req.session.member.회원번호) { // 로그인 상태에서만 접근 가능하도록 설정

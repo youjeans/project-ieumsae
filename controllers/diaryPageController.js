@@ -8,7 +8,7 @@ exports.displaySample = (req, res) => {
 }
 
 // 나와의 일기 페이지를 보여준다.
-exports.displayMine = (req, res) => {
+exports.displayMy = (req, res) => {
     // 로그인 중인지, 회원번호 접근 가능한지 확인
     if (!req.session.member || !req.session.member.회원번호) {
         return res.status(401).send("<script> alert('로그인이 필요합니다.'); location.href = '/login';</script>");
@@ -17,8 +17,7 @@ exports.displayMine = (req, res) => {
     const values = [req.session.member.회원번호];
     database.query(query, values, (err, result) => {
         const transResultData = transResult(result);
-        res.render('diaryMine', {result: transResultData});
-        console(transResultData);
+        res.render('diaryMy', {result: transResultData});
     });
 };
 
