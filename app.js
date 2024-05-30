@@ -39,6 +39,9 @@ app.use('/api', userRoutes);
 const signupRoutes = require('./routes/signupRoutes') // signup 라우트 등록
 app.use('/signup', signupRoutes); 
 
+const loginRoutes = require('./routes/loginRoutes') //login 라우트 등록
+app.use('/login', loginRoutes); 
+
 
 const diaryPageRouters = require('./routes/diaryPageRouters'); //  diaryPage 라우트 등록
 app.use('/diaryPage', diaryPageRouters);
