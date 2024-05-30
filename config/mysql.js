@@ -1,5 +1,5 @@
 var mysql = require("mysql2");
-var database_info = {
+var db_info = {
     host: "localhost",
     port: "3306",
     user: "root",
@@ -7,9 +7,9 @@ var database_info = {
     database: "ieumsae",
 };
 
-var database = mysql.createConnection(database_info);
+var db = mysql.createConnection(db_info);
 
-database.connect((err) => {
+db.connect((err) => {
     if (err) {
       console.error('MySQL 데이터베이스와 connect 되지 않음: ', err);
       return;
@@ -17,4 +17,4 @@ database.connect((err) => {
     console.log('MySQL 데이터베이스와 connect 됨');
   });
 
-module.exports = database;
+module.exports = db;

@@ -4,10 +4,9 @@ const app = express();
 const path = require("path");
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const FileStore = require('session-file-store')(session);
 
-const database = require('./config/mysql'); // mysql 설정
-
-const port = 3000; // 포트 번호 설정
+const db = require('./config/mysql'); // mysql 설정
 
 // 미들웨어 설정
 app.use(bodyParser.urlencoded({extended: false}));
@@ -16,17 +15,40 @@ app.use(bodyParser.json());
 // 뷰 엔진 ejs 설정
 app.set('view engine', 'ejs');
 
+// 세션 설정
+app.use(express.json());
+app.use(session({secret:  'ieumsae', cookie: {maxAge: 60000}, resave:true, saveUninitialized:true,}));
+app.use((req, res, next) => {
+    res.locals.id = "";
+    res.locals.name = "";
+    if(req.session.member){
+    res.locals.id = req.session.member.아이디;
+    res.locals.name = req.session.member.이름;
+    }
+    next()
+  })
+
 // 정적 파일 설정
 app.use(express.static(path.join(__dirname, 'public')));
   
 
 // 라우터 정의 및 사용
-const diaryPageRouters = require('./routes/diaryPageRouters');
+const userRoutes = require('./routes/userRoutes');
+app.use('/api', userRoutes);
+
+const signupRoutes = require('./routes/signupRoutes') // signup 라우트 등록
+app.use('/signup', signupRoutes); 
+
+
+const diaryPageRouters = require('./routes/diaryPageRouters'); //  diaryPage 라우트 등록
 app.use('/diaryPage', diaryPageRouters);
 
-const diaryAlarmRouters = require('./routes/diaryAlarmRouters');
+const diaryAlarmRouters = require('./routes/diaryAlarmRouters'); // diaryAlarm 라우트 등록
 app.use('/diaryAlarm', diaryAlarmRouters);
 
+app.get('/', (req, res) => {
+    res.render('test')
+});
 
 app.get('/form', (req, res) => {
     res.render('form');
@@ -38,6 +60,7 @@ app.post('/postForm', (req, res) => {
 });
 
 // 포트 liseten
-app.listen(port, () => {
-    console.log('Server Open : ', port);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
