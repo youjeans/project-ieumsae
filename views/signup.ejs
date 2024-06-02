@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입 페이지</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0 20px;
+        }
+        .signup-form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            box-sizing: border-box;
+        }
+        .signup-form h2 {
+            margin-bottom: 20px;
+        }
+        .signup-form input,
+        .signup-form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .signup-form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-sizing: border-box;
+        }
+        .signup-form button:hover {
+            background-color: #218838;
+        }
+        .signup-form .links {
+            display: flex;
+            justify-content: space-between;
+        }
+        .signup-form .links a {
+            color: #007BFF;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .signup-form .links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <form class="signup-form" action="/signup/register" method="post">
+        <h2>회원가입</h2>
+        <input type="text" name="username" placeholder="아이디" required>
+        <input type="password" name="password" placeholder="비밀번호" required>
+        <input type="password" name="password2" placeholder="비밀번호" required>
+        <input type="text" name="name" placeholder="이름" required>
+        <select name="gender" required>
+            <option value="">성별</option>
+            <option value="0">남성</option>
+            <option value="1">여성</option>
+        </select>
+        <input type="number" name="age" placeholder="나이" required min="1" step="1">
+        <input type="email" name="email" placeholder="이메일" required>
+        <select name="interests" required>
+            <option value = "">관심사</option>
+            <option value = "0">자기계발</option>
+            <option value = "1">여행</option>
+            <option value = "2">게임</option>
+            <option value = "3">요리</option>
+            <option value = "4">건강/의학</option>
+            <option value = "5">반려동물</option>
+            <option value = "6">영화/드라마</option>
+            <option value = "7">문학/책</option> 
+            <option value = "8">스포츠</option>
+            <option value = "9">스타/연예인</option>
+        </select>
+        <button type="submit">회원가입</button>
+        <div class="links">
+            <a href="/signup/login">로그인</a>
+            <a href="/signup/deletePage">회원탈퇴</a>
+        </div>
+    </form>
+
+</body>
+</html>

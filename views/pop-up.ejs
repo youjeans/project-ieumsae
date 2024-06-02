@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout</title>
+    <link rel="stylesheet" href="/css/pop-up.css">
+</head>
+<body>
+    <div class="card">
+        <div class="user-info">
+            <div class="profile-pic" style="background-image: url('<%= profilePicPath %>');"></div>
+            <div class="username">@<%= username %></div>
+        </div>
+        <div class="actions">
+            <button class="action-button" onclick="addFriend('<%= username %>')">친구 추가</button>
+            <button class="action-button">그룹 초대</button>
+        </div>
+    </div>
+    <script>
+        function addFriend(username) {
+            fetch('/friends/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ 친구_사용자_아이디: username })
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+                window.opener.location.reload(); // 부모 창 새로고침
+                window.close(); // 팝업 창 닫기
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('친구 추가 중 오류가 발생했습니다.');
+            });
+        }
+    </script>
+</body>
+</html>

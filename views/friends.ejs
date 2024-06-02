@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>친구 목록</title>
+</head>
+<body>
+    <h1>친구 목록</h1>
+    <form action="/friends/add" method="POST">
+        <label for="친구_사용자_아이디">친구 사용자 아이디:</label>
+        <input type="text" id="친구_사용자_아이디" name="친구_사용자_아이디" required>
+        <button type="submit">친구 추가</button>
+    </form>
+
+    <h2>현재 친구 목록:</h2>
+    <ul>
+        <% friends.forEach(friend => { %>
+            <li>친구 관계 번호: <%= friend.친구관계_번호 %>, 사용자 번호1: <%= friend.친구_사용자_번호1 %>, 사용자 번호2: <%= friend.친구_사용자_번호2 %>, 추가일: <%= friend.친구추가일 %></li>
+        <% }); %>
+    </ul>
+
+    <a href="/logout">로그아웃</a>
+</body>
+</html>
