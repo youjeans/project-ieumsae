@@ -19,6 +19,9 @@ app.use('/diaryPage', diaryPageRouters);
 const diaryAlarmRouters = require('./routes/diaryAlarmRouters');
 app.use('/diaryAlarm', diaryAlarmRouters);
 
+const diaryRoutes = require('./routes/diaryRoutes');
+app.use('/diary', diaryRoutes);
+
 // express-session 미들웨어 설정
 app.use(session({
     secret: 'ieumsae', // 비밀 키
@@ -34,10 +37,6 @@ app.use(session({
     console.log('Session:', req.session); // 세션 로그 추가
     next();
   });
-
-app.get('/form', diaryController.renderForm);
-app.get('/getForm', diaryController.handleGetForm);
-app.post('/postForm', diaryController.handlePostForm);
 
 const server = app.listen(port, () => {
     console.log('Server Open : ', port);
