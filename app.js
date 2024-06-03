@@ -8,6 +8,16 @@ const port = 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.set('view engine', 'ejs');
+// 정적 파일 설정
+app.use(express.static(path.join(__dirname, 'public')));
+  
+
+// 라우터 정의 및 사용
+const diaryPageRouters = require('./routes/diaryPageRouters');
+app.use('/diaryPage', diaryPageRouters);
+
+const diaryAlarmRouters = require('./routes/diaryAlarmRouters');
+app.use('/diaryAlarm', diaryAlarmRouters);
 
 // express-session 미들웨어 설정
 app.use(session({
