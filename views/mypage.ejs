@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마이페이지</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        .change-password {
+            flex: 1;
+            margin-left: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="/img/logo.png" alt="로고" class="logo">
+
+            </button>
+            <button class="btn" onclick="navigateToHome()">홈</button>
+            <script>
+                function navigateToHome() {
+                    window.location.href = "/";
+                }
+            </script>
+        <button class="btn" onclick="navigateToDelete()">회원 탈퇴</button>
+        <script>
+            function navigateToDelete() {
+                window.location.href = "/mypage/deletePage";
+            }
+        </script>
+    </header>
+    <div class="container">
+        <div class="profile-section">
+            <img src="/img/default-profile" alt="프로필 사진" class="profile-pic">
+            <h2>마이페이지</h2>
+            <button class="btn" onclick="navigateToPWupdate()">비밀번호 변경</button>
+            <script>
+                function navigateToPWupdate() {
+                    window.location.href = "/mypage/pwUpdatePage";
+                }
+            </script>
+        </div>
+        <div class="diary-section"> 
+            <div class="diary-container">
+                <div class="diary">
+                   <h3>이름: <%= userInfo.user_name %></h3>
+                   <h3>아이디: <%= userInfo.user_number %></h3>
+                   <h3>성별: <%= userInfo.user_gender %></h3>
+                   <h3>나이: <%= userInfo.user_age %></h3>
+                   <h3>이메일: <%= userInfo.user_email %></h3>
+                   <h3>관심사: <%= userInfo.user_interest %></h3>
+                </div>
+            </div>
+        </div>
+    
+    <script src="/js/script.js"></script>
+</body>
+</html>

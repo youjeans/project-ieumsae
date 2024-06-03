@@ -8,14 +8,14 @@ exports.displaysignupPage = (req, res) => {
 };
 
 exports.signup = (req, res) => {
-    var username = req.body.username;
-    var password = req.body.password;
-    var password2 = req.body.password2;
-    var name = req.body.name;
-    var gender = req.body.gender;
-    var age = req.body.age;
-    var email = req.body.email;
-    var interests = req.body.interests;
+    const username = req.body.username;
+    const password = req.body.password;
+    const password2 = req.body.password2;
+    const name = req.body.name;
+    const gender = req.body.gender;
+    const age = req.body.age;
+    const email = req.body.email;
+    const interests = req.body.interests;
     
 
     const hashedPassword = crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
@@ -25,10 +25,10 @@ exports.signup = (req, res) => {
         db.query('SELECT * FROM 사용자 WHERE 아이디 = ?', [username], function(error, results, fields) { // DB에 같은 이름의 회원아이디가 있는지 확인
             if (error) throw error;
             if (results.length <= 0 && hashedPassword == hashedPassword2) {     // DB에 같은 이름의 회원아이디가 없고, 비밀번호가 올바르게 입력된 경우 
-                db.query('INSERT INTO 사용자 (아이디, 비밀번호, 이름, 성별, 나이, 이메일, 관심사) VALUES(?,?,?,?,?,?,?)', [username, hashedPassword, name, gender, age, email, interests], function (error, data) {
+                db.query('INSERT INTO 사용자 (아이디, 비밀번호, 이름, 성별, 나이, 이메일, 관심사, 해시) VALUES(?,?,?,?,?,?,?,?)', [username, hashedPassword, name, gender, age, email, interests, salt], function (error, data) {
                     if (error) throw error;
                     res.send(`<script type="text/javascript">alert("회원가입이 완료되었습니다!");
-                    document.location.href="/signup";</script>`);
+                    document.location.href="/login";</script>`);
                 });
             } else if (hashedPassword != hashedPassword2) {                     // 비밀번호가 올바르게 입력되지 않은 경우
                 res.send(`<script type="text/javascript">alert("입력된 비밀번호가 서로 다릅니다."); 
@@ -54,20 +54,10 @@ exports.displayloginPage = (req, res) => {
 }
 
 exports.delete = (req, res) => {
-    var username = req.body.username;
-    var password = req.body.password;
-    var password2 = req.body.password2;
+    const username = req.body.username;
+    const password = req.body.password;
 
-    const hashedPassword = crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
-    const hashedPassword2 = crypto.pbkdf2Sync(password2, salt, 1000, 64, 'sha512').toString('hex');  
-
-    if (username && hashedPassword && hashedPassword2) {
-        if (hashedPassword !== hashedPassword2) {
-            // 비밀번호가 올바르게 입력되지 않은 경우
-            return res.send(`<script type="text/javascript">alert("입력된 비밀번호가 서로 다릅니다.");
-            document.location.href="/signup/deletePage";</script>`);
-        }
-
+    if (username && password) {
         // DB에 같은 이름의 회원아이디가 있는지 확인
         db.query('SELECT * FROM 사용자 WHERE 아이디 = ?', [username], function(error, results, fields) {
             if (error) {
@@ -81,8 +71,10 @@ exports.delete = (req, res) => {
                 document.location.href="/signup/deletePage";</script>`);
             }
 
-            var storedPassword = results[0].비밀번호; // 저장된 비밀번호
-            
+            const storedPassword = results[0].비밀번호; // 저장된 비밀번호
+            const hash = results[0].해시;
+            if(hash !== null){var hashedPassword = crypto.pbkdf2Sync(password, hash, 1000, 64, 'sha512').toString('hex');}
+            else hashedPassword = password;
             // 입력된 비밀번호와 저장된 비밀번호가 일치하는지 확인
             if (storedPassword !== hashedPassword) {
                 return res.send(`<script type="text/javascript">alert("비밀번호가 일치하지 않습니다.");
@@ -95,9 +87,12 @@ exports.delete = (req, res) => {
                     console.error("Database query error: ", error);
                     return res.status(500).send("Internal Server Error");
                 }
-
-                res.send(`<script type="text/javascript">alert("회원탈퇴가 완료되었습니다!");
-                document.location.href="/signup";</script>`);
+                req.session.member = null; // logout
+                res.send("<script>alert('회원탈퇴가 완료되었습니다.'); location.href='/';</script>");
+                
+                db.query('ALTER TABLE 사용자 AUTO_INCREMENT = 1');
+                db.query('SET @CNT=0');
+                db.query('UPDATE 사용자 SET 회원번호=@CNT:=@CNT+1');
             });
         });
     } else {

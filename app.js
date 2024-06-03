@@ -11,6 +11,7 @@ const signupRoutes = require('./routes/signupRoutes');
 const loginRoutes = require('./routes/loginRoutes');
 const friendRoutes = require('./routes/friendRoutes');
 const listRoutes = require('./routes/listRoutes'); // listRoutes 가져오기
+const mypageRoutes = require('./routes/mypageRoutes'); 
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -50,7 +51,8 @@ app.use('/api', userRoutes);
 app.use('/signup', signupRoutes);
 app.use('/login', loginRoutes);
 app.use('/friends', friendRoutes);
-app.use('/list', listRoutes); 
+app.use('/list', listRoutes);
+app.use('/mypage', mypageRoutes);
 
 // 기본 라우트
 app.get('/', (req, res) => {

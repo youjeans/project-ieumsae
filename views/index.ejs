@@ -15,15 +15,24 @@
                 <img src="/img/mailbox.png" alt="알림 아이콘" class="notification-icon">
                 <span class="notification-count">5</span>
             </button>
-            <button class="btn">로그아웃</button>
-            <button class="btn">마이페이지</button>
+            <button class="btn" onclick="navigateToLogout()">로그아웃</button>
+            <script>
+                function navigateToLogout() {
+                    window.location.href = "/login/logout";
+                }
+            </script>
+            <button class="btn" onclick="navigateToMypage()">마이페이지</button>
+            <script>
+                function navigateToMypage() {
+                    window.location.href = "/mypage";
+                }
+            </script>
         </header>
         <div class="container">
             <div class="profile-section">
                 <img src="/img/default-profile" alt="프로필 사진" class="profile-pic">
                 <h2><span id="username"><%= name %></span>님의 일기장</h2>
                 <button class="btn" onclick="navigateToList()">친구 관리</button>
-
                 <script>
                     function navigateToList() {
                         window.location.href = "/list";
