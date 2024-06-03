@@ -1,5 +1,5 @@
 const mysql = require('mysql2');
-const connection = require('../config/database');
+const connection = require('../config/mysql');
 const randModel = require('../models/randModel');
 
 // 특정 사용자의 친구 목록과 이름을 가져오는 함수

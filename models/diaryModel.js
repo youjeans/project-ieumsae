@@ -1,6 +1,6 @@
 // diaryModel.js
 const mysql = require('mysql2');
-const connection = require('../config/database');
+const connection = require('../config/mysql');
 const loginController = require('../controllers/loginController');
 
 

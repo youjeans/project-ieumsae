@@ -1,9 +1,13 @@
-var express = require('express');
-var router = express.Router();
-var diaryController = require('../controllers/diaryController');
+const express = require('express');
+const router = express.Router();
+const diaryController = require('../controllers/diaryController');
 
-router.post('/getinfo', diaryController.renderForm);
-router.post('/confirm', diaryController.handleGetForm);
-router.post('/set', diaryController.handlePostForm);
+router.get('/', (req, res) => {
+  res.send('Diary Home');
+});
+
+router.get('/form', diaryController.renderForm);
+router.get('/getform', diaryController.handleGetForm);
+router.post('/postform', diaryController.handlePostForm);
 
 module.exports = router;

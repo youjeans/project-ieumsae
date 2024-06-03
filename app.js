@@ -8,19 +8,6 @@ const port = 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.set('view engine', 'ejs');
-// 정적 파일 설정
-app.use(express.static(path.join(__dirname, 'public')));
-  
-
-// 라우터 정의 및 사용
-const diaryPageRouters = require('./routes/diaryPageRouters');
-app.use('/diaryPage', diaryPageRouters);
-
-const diaryAlarmRouters = require('./routes/diaryAlarmRouters');
-app.use('/diaryAlarm', diaryAlarmRouters);
-
-const diaryRoutes = require('./routes/diaryRoutes');
-app.use('/diary', diaryRoutes);
 
 // express-session 미들웨어 설정
 app.use(session({
@@ -37,6 +24,9 @@ app.use(session({
     console.log('Session:', req.session); // 세션 로그 추가
     next();
   });
+
+  const diaryRoutes = require('./routes/diaryRoutes');
+  app.use('/diary', diaryRoutes);
 
 const server = app.listen(port, () => {
     console.log('Server Open : ', port);

@@ -1,6 +1,6 @@
 // userModel.js
 const mysql = require('mysql2');
-const connection = require('../config/database');
+const connection = require('../config/mysql');
 
 // 사용자 테이블에서 회원번호, 이름, 관심사를 가져오는 함수
 function getUsers(callback) {
