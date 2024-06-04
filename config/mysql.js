@@ -4,7 +4,7 @@ const connection = db.createConnection({
   host: 'localhost',
   port: '3306',
   user: 'root',
-  password: 'khj63653362',
+  password: '4151561',
   database: 'ieumsae'
 });
 
