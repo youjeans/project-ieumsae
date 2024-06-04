@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이음새</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+    <% if (id) { %>
+        <header>
+            <img src="/img/logo.png" alt="로고" class="logo">
+            <button class="notification-btn">
+                <img src="/img/mailbox.png" alt="알림 아이콘" class="notification-icon">
+                <span class="notification-count">5</span>
+            </button>
+            <button class="btn">로그아웃</button>
+            <button class="btn">마이페이지</button>
+        </header>
+        <div class="container">
+            <div class="profile-section">
+                <img src="/img/default-profile" alt="프로필 사진" class="profile-pic">
+                <h2><span id="username"><%= name %></span>님의 일기장</h2>
+                <button class="btn" onclick="navigateToList()">친구 관리</button>
+
+                <script>
+                    function navigateToList() {
+                        window.location.href = "/list";
+                    }
+                </script>
+            </div>
+    
+            <div class="diary-section">
+                <div class="diary-container">
+                    <div class="diary">
+                        <img src="" class="client-img" id="clientImage1" style="display: block;">
+                        <img src="/img/default-diary.png" alt="일기 노트" class="diary-img" id="diaryImage1" onclick="document.getElementById('upload1').click();">       
+                    </div>
+                    <div class="diary">
+                        <img src="" class="client-img" id="clientImage2" style="display: block;">
+                        <img src="/img/default-diary.png" alt="일기 노트" class="diary-img" id="diaryImage2" onclick="document.getElementById('upload2').click();">       
+                    </div>
+                    <div class="diary">
+                        <img src="" class="client-img" id="clientImage3" style="display: block;">
+                        <img src="/img/default-diary.png" alt="일기 노트" class="diary-img" id="diaryImage3" onclick="document.getElementById('upload3').click();">       
+                    </div>
+                </div>
+                <input type="file" id="upload1" accept="image/*" hidden>
+                <input type="file" id="upload2" accept="image/*" hidden>
+                <input type="file" id="upload3" accept="image/*" hidden>
+                <div class="horizontal-rectangle"></div>
+            </div>
+        </div>
+    <% } else { %>
+        <header>
+            <img src="/img/logo.png" alt="로고" class="logo">
+            <button class="notification-btn">
+                <img src="/img/mailbox.png" alt="알림 아이콘" class="notification-icon">
+                <span class="notification-count">5</span>
+            </button>
+            <button class="btn" onclick="navigateToLogin()">로그인</button>
+            <script>
+                function navigateToLogin() {
+                    window.location.href = "/login";
+                }
+            </script>
+        </header>
+        <div class="container">
+            <div class="profile-section">
+                <img src="/img/default-profile.png" alt="프로필 사진" class="profile-pic">
+                <h2>로그인이 필요합니다.</h2>
+                <button class="btn" onclick="navigateToSignUp()">회원가입</button>
+                <script>
+                    function navigateToSignUp() {
+                        window.location.href = "/signup";
+                    }
+                </script>
+                <button class="btn" onclick="navigateToLogin()">로그인</button>
+                <script>
+                    function navigateToLogin() {
+                        window.location.href = "/login";
+                    }
+                </script>
+            </div>
+    
+            <div class="diary-section">
+                <div class="diary-container">
+                    <div class="diary">
+                        <img src="" class="client-img" id="clientImage1" style="display: block;">
+                        <img src="/img/default-diary.png" alt="일기 노트" class="diary-img" id="diaryImage1" onclick="document.getElementById('upload1').click();">       
+                    </div>
+                    <div class="diary">
+                        <img src="" class="client-img" id="clientImage2" style="display: block;">
+                        <img src="/img/default-diary.png" alt="일기 노트" class="diary-img" id="diaryImage2" onclick="document.getElementById('upload2').click();">       
+                    </div>
+                    <div class="diary">
+                        <img src="" class="client-img" id="clientImage3" style="display: block;">
+                        <img src="/img/default-diary.png" alt="일기 노트" class="diary-img" id="diaryImage3" onclick="document.getElementById('upload3').click();">       
+                    </div>
+                </div>
+                <input type="file" id="upload1" accept="image/*" hidden>
+                <input type="file" id="upload2" accept="image/*" hidden>
+                <input type="file" id="upload3" accept="image/*" hidden>
+                <div class="horizontal-rectangle"></div>
+            </div>
+        </div>
+    <% } %>
+
+    <script src="/js/script.js"></script>
+</body>
+</html>

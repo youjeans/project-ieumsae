@@ -1,57 +1,68 @@
-// 기본 설정
 const express = require('express');
-const app = express();
-const path = require("path");
+const path = require('path');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
+const db = require('./config/mysql');
 
-const db = require('./config/mysql'); // mysql 설정
+// 라우터들 가져오기
+const userRoutes = require('./routes/userRoutes');
+const signupRoutes = require('./routes/signupRoutes');
+const loginRoutes = require('./routes/loginRoutes');
+const friendRoutes = require('./routes/friendRoutes');
+const listRoutes = require('./routes/listRoutes'); // listRoutes 가져오기
+const diaryPageRouters = require('./routes/diaryPageRouters'); // diarypage 라우트 등록
+const diaryAlarmRouters = require('./routes/diaryAlarmRouters'); // diaryalarm 라우트 등록
+const diaryRoutes = require('./routes/diaryRoutes'); // diary 라우트 등록
+// const diaryController = require('./controllers/diaryController');
 
-const diaryController = require('./controllers/diaryController');
+const app = express();
+const port = process.env.PORT || 3000;
 
-// 미들웨어 설정
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-
-// 뷰 엔진 ejs 설정
-app.set('view engine', 'ejs');
-
-// 정적 파일 설정
+// 정적 파일 제공 설정
 app.use(express.static(path.join(__dirname, 'public')));
 
-// 세션 설정
+// EJS를 템플릿 엔진으로 설정
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+// 미들웨어 설정
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(express.json());
-app.use(session({secret:  'ieumsae', cookie: {maxAge: 60000}, resave:true, saveUninitialized:true,}));
+
+app.use(session({
+    secret: 'ieumsae',
+    cookie: { maxAge: 36000000 },
+    resave: true,
+    saveUninitialized: true,
+}));
+
+// 세션 설정
 app.use((req, res, next) => {
     res.locals.id = "";
     res.locals.name = "";
-    if(req.session.member){
-    res.locals.id = req.session.member.아이디;
-    res.locals.name = req.session.member.이름;
+    if (req.session.member) {
+        res.locals.id = req.session.member.아이디;
+        res.locals.name = req.session.member.이름;
     }
-    next()
-  })
+    next();
+});
 
-// 라우터 정의 및 사용
-const userRoutes = require('./routes/userRoutes');
+// 라우터 설정
 app.use('/api', userRoutes);
-
-const signupRoutes = require('./routes/signupRoutes') // signup 라우트 등록
-app.use('/signup', signupRoutes); 
-
-const loginRoutes = require('./routes/loginRoutes') // login 라우트 등록
-app.use('/login', loginRoutes); 
-
-const diaryPageRouters = require('./routes/diaryPageRouters'); // diarypage 라우트 등록
+app.use('/signup', signupRoutes);
+app.use('/login', loginRoutes);
+app.use('/friends', friendRoutes);
+app.use('/list', listRoutes); 
 app.use('/diaryPage', diaryPageRouters);
-
-const diaryAlarmRouters = require('./routes/diaryAlarmRouters'); // diaryalarm 라우트 등록
 app.use('/diaryAlarm', diaryAlarmRouters);
-
-const diaryRoutes = require('./routes/diaryRoutes'); // diary 라우트 등록
 app.use('/diary', diaryRoutes);
 
+// 기본 라우트
+app.get('/', (req, res) => {
+    res.render('index', {exchangePartners: req.exchangePartners});
+});
 
 // 메인 페이지에서 책을 동적으로 증가시키기 위해 사용
 const {getExchangePartners} = require('./models/exchangePartnersModel');
@@ -65,14 +76,9 @@ app.use((req, res, next) => {
     }
 });
 
-// 기본 라우트
-app.get('/', (req, res) => {
-    res.render('test', {exchangePartners: req.exchangePartners});
-});
 
-
-// 포트 liseten
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+// 서버 시작
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
 });

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout</title>
+    <link rel="stylesheet" href="/css/list.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="profile-pic" style="background-image: url('<%= profilePicPath %>');"></div>
+            <div class="username">@<%= username %></div>
+            <div class="search-container">
+                <input type="text" id="search-bar" class="search-bar" placeholder="검색창">
+                <button class="search-button" onclick="checkUserAndOpenPopup()">🔍</button>
+            </div>
+        </div>
+        <% if (idsAndInterests && idsAndInterests.length > 0) { %>
+            <% idsAndInterests.forEach(user => { %>
+            <div class="item">
+                <div class="profile-pic2" style="background-image: url('<%= user.profilePicPath %>');"></div>
+                <div class="id">@<%= user.id %></div>
+                <div class="actions">
+                    <div class="action-text"><%= user.interest %></div>
+                    <button class="action-button" onclick="checkUserAndOpenPopup('<%= user.id %>')">보내기</button>
+                    <button class="action-button" onclick="deleteFriend('<%= user.id %>')">삭제</button>
+                </div>
+            </div>
+            <% }); %>
+        <% } else { %>
+            <p>친구 목록이 없습니다.</p>
+        <% } %>
+    </div>
+    <script>
+        function checkUserAndOpenPopup() {
+            const searchText = document.getElementById('search-bar').value;
+            if (!searchText) {
+                alert('아이디를 입력하세요');
+                return;
+            }
+
+            fetch(`/list/check-user-id?userId=${searchText}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.exists) {
+                        window.open(`/list/pop-up?userId=${searchText}`, 'popUpWindow', 'height=400,width=600,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=yes');
+                    } else {
+                        alert('등록되지 않은 아이디입니다');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('아이디 확인 중 오류가 발생했습니다.');
+                });
+        }
+
+        function deleteFriend(friendId) {
+            if (!confirm('정말로 친구를 삭제하시겠습니까?')) {
+                return;
+            }
+
+            fetch('/list/delete-friend', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ friendId: friendId })
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+                location.reload(); // 페이지 새로고침하여 변경 사항 반영
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('친구 삭제 중 오류가 발생했습니다.');
+            });
+        }
+    </script>
+</body>
+</html>
