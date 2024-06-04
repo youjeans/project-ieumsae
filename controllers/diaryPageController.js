@@ -1,6 +1,6 @@
 const session = require('express-session');
 const database = require('../config/mysql');
-const transResult = require('./transResult');
+const transResult = require('../models/transResultModel');
 
 exports.displaySample = (req, res) => {
     const data = "Hello!";

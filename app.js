@@ -54,7 +54,7 @@ app.use('/diary', diaryRoutes);
 
 
 // 메인 페이지에서 책을 동적으로 증가시키기 위해 사용
-const {getExchangePartners} = require('./controllers/exchangePartners');
+const {getExchangePartners} = require('./models/exchangePartnersModel');
 app.use((req, res, next) => { 
     if (!req.session.member || !req.session.member.회원번호) { // 로그인 상태에서만 접근 가능하도록 설정
         next();
@@ -63,6 +63,11 @@ app.use((req, res, next) => {
             next();
         });
     }
+});
+
+// 기본 라우트
+app.get('/', (req, res) => {
+    res.render('test', {exchangePartners: req.exchangePartners});
 });
 
 

@@ -1,6 +1,6 @@
 const session = require('express-session');
 const database = require('../config/mysql');
-const transResult = require('./transResult');
+const transResult = require('../models/transResultModel');
 
 // 알람 페이지를 보여준다. 조회수가 0인 데이터만 노출된다.
 exports.displayAlarm = (req, res) => {
