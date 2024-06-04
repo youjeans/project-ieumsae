@@ -10,6 +10,17 @@
     <% if (id) { %>
         <%= name %>님 환영합니다 | 
         <a href="/login/logout">로그아웃</a>
+        <br>
+        <% exchangePartners.forEach((partner) => { %>
+            <a href="/diaryPage/<%= partner.회원번호 %>"><%= partner.이름 %>과의 교환일기</a>
+        <% }); %>
+        <br>
+        <a href="/diaryPage/my">나에게 보낸 일기</a>
+        <br>
+        <a href="/diaryAlarm">일기 알람</a>
+        <br>
+        <a href="/diary/form">일기 쓰기</a>
+        <br>
         <a href="/list">친구 관리</a>
     <% } else { %>
         <a href="/signup">회원가입</a>  | 

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>일기 쓰기</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .write-container {
+      width: 90%;
+      margin: 0 auto; /* 가운데 정렬 */
+      font-size: 20px;
+    }
+
+    h1 {
+      margin-top: 30px;
+      margin-bottom: 20px;
+    }
+/*
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+    } 이게 문제였네
+*/
+    textarea {
+      margin-bottom: 10px;
+      width: 100%;
+      height: 800px;
+      font-size: 20px;
+    }
+
+    button[type="submit"] {
+      padding: 10px 20px;
+      font-size: 20px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      margin-left: 5px;
+    }
+
+    .friend-select {
+      display: none;
+    }
+
+    #친구목록{
+      font-size: 20px;
+    }
+
+    input[type="radio"] {
+      transform: scale(1.5); /* 숫자를 변경하여 크기 조절 */
+      margin-right: 5px;
+    }
+
+    .back-link {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      font-size: 18px;
+      text-decoration: none;
+      color: #007BFF;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="write-container">
+    <h1>일기 쓰기</h1>
+    <form action="/diary/postForm" method="post" name="getform">
+      <div>
+        <input type="radio" id="나" name="교환대상" value="<%= userId %>" checked>
+        <label for="나">나</label>
+        <input type="radio" id="랜덤" name="교환대상" value="<%= randomUser ? randomUser.회원번호 : '' %>">
+        <label for="랜덤">랜덤</label>
+        <input type="radio" id="친구" name="교환대상">
+        <label for="친구">친구</label>
+        
+        <select id="친구목록" name="교환대상_친구" disabled>
+          <option value="" disabled selected>친구들</option>
+          <% friendInfo.forEach(friend => { %>
+            <option value="<%= friend.회원번호 %>"><%= friend.이름 %></option>
+          <% }); %>
+        </select>
+      </div>
+      <div>
+        <button type="submit">전송</button>
+        <textarea id="일기_내용" name="일기_내용" required maxlength="1000" style="resize: none;"></textarea>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('친구').addEventListener('change', function() {
+      const 친구목록 = document.getElementById('친구목록');
+      친구목록.disabled = !this.checked;
+    });
+  
+    document.getElementById('친구목록').addEventListener('change', function() {
+      const selectedValue = this.value;
+      document.querySelectorAll('input[name="교환대상"]').forEach((input) => {
+        input.value = selectedValue;
+      });
+    });
+  
+    document.querySelectorAll('input[name="교환대상"]').forEach((input) => {
+      input.addEventListener('change', function() {
+        const isFriendSelected = document.getElementById('친구').checked;
+        const 친구목록 = document.getElementById('친구목록');
+        친구목록.disabled = !isFriendSelected;
+  
+        if (this.value === '<%= userId %>') {
+          친구목록.value = this.value;
+        } else if (!isFriendSelected) {
+          document.querySelectorAll('input[name="교환대상"]').forEach((input) => {
+            input.value = this.value;
+          });
+        }
+      });
+    });
+  
+    document.querySelector('button[type="submit"]').addEventListener('click', function() {
+      const selectElement = document.getElementById('친구목록');
+      if (selectElement.value === "" && selectElement.options[selectElement.selectedIndex].text === "친구들" && document.getElementById('친구').checked) {
+        alert("받을 사람을 선택해주세요.");
+        event.preventDefault(); // 전송을 중지
+      }
+    });
+  </script>
+  
+</body>
+</html>
