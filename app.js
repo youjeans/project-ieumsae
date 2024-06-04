@@ -59,26 +59,25 @@ app.use('/diaryPage', diaryPageRouters);
 app.use('/diaryAlarm', diaryAlarmRouters);
 app.use('/diary', diaryRoutes);
 
-// 기본 라우트
-app.get('/', (req, res) => {
-    res.render('index', {exchangePartners: req.exchangePartners});
-});
 
 // 메인 페이지에서 책을 동적으로 증가시키기 위해 사용
-const {getExchangePartners} = require('./models/exchangePartnersModel');
-app.use((req, res, next) => { 
-    if (!req.session.member || !req.session.member.회원번호) { // 로그인 상태에서만 접근 가능하도록 설정
-        next();
-    } else {
+const { getExchangePartners } = require('./models/exchangePartnersModel');
+app.use((req, res, next) => {
+    if (!req.session.member || !req.session.member.회원번호) next();
+        else {
         getExchangePartners(req, res, ()=> {
             next();
         });
     }
 });
 
+// 기본 라우트
+app.get('/', (req, res) => {
+    res.render('index', {myname: req.myname, exchangePartners: req.exchangePartners, exchangenum: req.exchangePartnersCount});
+});
+
 
 // 서버 시작
-const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });

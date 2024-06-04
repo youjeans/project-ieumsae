@@ -22,8 +22,6 @@ const transResult = (result) => {
                     break;
                 case 2:
                     diary.교환유형 = "랜덤";
-                    if (diary.송신자_이름) diary.송신자_이름 = "익명";
-                    if (diary.작성자_이름) diary.작성자_이름 = "익명";
                     break;
                 case 3:
                     diary.교환유형 = "그룹";

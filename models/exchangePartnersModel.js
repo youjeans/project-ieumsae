@@ -1,4 +1,5 @@
 const database = require('../config/mysql');
+const transResult = require('../models/transResultModel');
 
 exports.getExchangePartners = (req, res, next) => {
     // 로그인 중인지, 회원번호 접근 가능한지 확인
@@ -24,9 +25,11 @@ exports.getExchangePartners = (req, res, next) => {
                 exchangePartners.add({회원번호: partner.수신자_번호, 이름: partner.수신자_이름});
             }
         });
-        
+
         req.exchangePartners = Array.from(exchangePartners);
+
+        req.exchangePartnersCount = req.exchangePartners.length; // 요소 수를 변수에 저장
+        req.myname = req.session.member.이름;
         next();
     })
-    
 };

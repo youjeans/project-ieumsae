@@ -8,13 +8,6 @@ var db_info = {
 };
 
 var db = mysql.createConnection(db_info);
-
-db.connect((err) => {
-    if (err) {
-      console.error('MySQL 데이터베이스와 connect 되지 않음: ', err);
-      return;
-    }
-    console.log('MySQL 데이터베이스와 connect 됨');
-  });
+db.connect();
 
 module.exports = db;
