@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -65,9 +63,7 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
-=======
-=======
->>>>>>> origin/develop
+
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -150,9 +146,5 @@ app.get('/', (req, res) => {
 // 서버 시작
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
-<<<<<<< HEAD
 });
->>>>>>> ffe0be8ec833c34ac9c86bfb4436a792e4620e47
-=======
-});
->>>>>>> origin/develop
+
