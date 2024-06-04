@@ -35,7 +35,6 @@ exports.displayPage = (req, res) => {
     }
 
     const query = 'SELECT u.이름 AS 작성자_이름, d.일기_내용, d.일기_송신일, d.교환유형 FROM 일기 d JOIN 사용자 u ON d.작성자_번호 = u.회원번호 WHERE (d.수신자_번호 = ? AND d.작성자_번호 = ?) OR (d.작성자_번호 = ? AND d.수신자_번호 = ?) AND d.일기_송신일 < NOW() ORDER BY 일기_송신일 DESC';
-    //const values = [4, exchange, 4, exchange]; // 임시적으로 설정
     const values = [req.session.member.회원번호, exchange, req.session.member.회원번호, exchange];
     database.query(query, values, (err, result) => {
         if (err) {
@@ -46,4 +45,3 @@ exports.displayPage = (req, res) => {
         res.render('diaryPage', { result: transResultData });
     });
 };
-

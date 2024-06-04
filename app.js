@@ -8,12 +8,17 @@ const FileStore = require('session-file-store')(session);
 
 const db = require('./config/mysql'); // mysql 설정
 
+const diaryController = require('./controllers/diaryController');
+
 // 미들웨어 설정
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // 뷰 엔진 ejs 설정
 app.set('view engine', 'ejs');
+
+// 정적 파일 설정
+app.use(express.static(path.join(__dirname, 'public')));
 
 // 세션 설정
 app.use(express.json());
@@ -28,10 +33,6 @@ app.use((req, res, next) => {
     next()
   })
 
-// 정적 파일 설정
-app.use(express.static(path.join(__dirname, 'public')));
-  
-
 // 라우터 정의 및 사용
 const userRoutes = require('./routes/userRoutes');
 app.use('/api', userRoutes);
@@ -39,15 +40,18 @@ app.use('/api', userRoutes);
 const signupRoutes = require('./routes/signupRoutes') // signup 라우트 등록
 app.use('/signup', signupRoutes); 
 
-const loginRoutes = require('./routes/loginRoutes') //login 라우트 등록
+const loginRoutes = require('./routes/loginRoutes') // login 라우트 등록
 app.use('/login', loginRoutes); 
 
-
-const diaryPageRouters = require('./routes/diaryPageRouters'); //  diaryPage 라우트 등록
+const diaryPageRouters = require('./routes/diaryPageRouters'); // diarypage 라우트 등록
 app.use('/diaryPage', diaryPageRouters);
 
-const diaryAlarmRouters = require('./routes/diaryAlarmRouters'); // diaryAlarm 라우트 등록
+const diaryAlarmRouters = require('./routes/diaryAlarmRouters'); // diaryalarm 라우트 등록
 app.use('/diaryAlarm', diaryAlarmRouters);
+
+const diaryRoutes = require('./routes/diaryRoutes'); // diary 라우트 등록
+app.use('/diary', diaryRoutes);
+
 
 // 메인 페이지에서 책을 동적으로 증가시키기 위해 사용
 const {getExchangePartners} = require('./controllers/exchangePartners');
@@ -61,18 +65,6 @@ app.use((req, res, next) => {
     }
 });
 
-app.get('/', (req, res) => {
-    res.render('test', {exchangePartners: req.exchangePartners })
-});
-
-app.get('/form', (req, res) => {
-    res.render('form');
-});
-
-app.post('/postForm', (req, res) => {
-    console.log(req.body);
-    res.render('result', {data: req.body});
-});
 
 // 포트 liseten
 const PORT = process.env.PORT || 3000;

@@ -1,12 +1,12 @@
 // 일기_송신일 변환 함수
 const formatDate = (dateString) => {
-        const date = new Date(dateString);
-        const year = date.getFullYear();
-        const month = date.getMonth() + 1;
-        const day = date.getDate();
-        const week = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'][date.getDay()];
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const week = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'][date.getDay()];
 
-        return `${year}년 ${month}월 ${day}일 ${week}`;
+    return `${year}년 ${month}월 ${day}일 ${week}`;
 };
 
 // 일기 교환유형 대입 및 랜덤의 경우 익명으로 변경

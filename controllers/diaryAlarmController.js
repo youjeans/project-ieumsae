@@ -10,7 +10,6 @@ exports.displayAlarm = (req, res) => {
     }
     
     const query = 'SELECT e.교환기록_번호, u.이름 AS 송신자_이름, e.수신일시 FROM 일기교환기록 e JOIN 사용자 u ON e.송신자_번호 = u.회원번호 WHERE e.조회여부 = 0 AND e.수신자_번호 = ? AND e.수신일시 < NOW() ORDER BY e.수신일시 DESC ';
-    //const value = [4];
     const value = [req.session.member.회원번호];
     database.query(query, value, (err, result) => {
         if (err) {
@@ -47,4 +46,3 @@ exports.displayPageId = (req, res) => {
         res.render('diaryPageId', {result: transResultDate});
     });
 };
-
