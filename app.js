@@ -63,11 +63,13 @@ app.use('/mypage', mypageRoutes);
 
 
 // 메인 페이지에서 책을 동적으로 증가시키기 위해 사용
-const { getExchangePartners } = require('./models/exchangePartnersModel');
+const { getExchangeInfo } = require('./models/exchangePartnersModel');
 app.use((req, res, next) => {
-    if (!req.session.member || !req.session.member.회원번호) next();
-        else {
-        getExchangePartners(req, res, ()=> {
+    if (!req.session.member || !req.session.member.회원번호) {
+        next();
+    }
+    else {
+        getExchangeInfo(req, res, ()=> {
             next();
         });
     }
@@ -75,7 +77,7 @@ app.use((req, res, next) => {
 
 // 기본 라우트
 app.get('/', (req, res) => {
-    res.render('index', {myname: req.myname, exchangePartners: req.exchangePartners, exchangenum: req.exchangePartnersCount});
+    res.render('index', {myname: req.myname, exchangePartners: req.exchangePartners, count: req.count});
 });
 
 
