@@ -35,7 +35,7 @@ if (교환유형 === 0) {
 }
 
 
-  const sql = 'INSERT INTO 일기 (작성자_번호, 교환대상, 일기_내용, 일기_작성일, 일기_송신일, 교환유형) VALUES (?, ?, ?, ?, ?, ?)';
+const sql = 'INSERT INTO 일기 (작성자_번호, 수신자_번호, 일기_내용, 일기_작성일, 일기_송신일, 교환유형) VALUES (?, ?, ?, ?, ?, ?)';
   connection.query(sql, [작성자_번호, 교환대상, 일기_내용, 일기_작성일, 일기_송신일, 교환유형], (err, result) => {
     if (err) return callback(err);
     callback(null, result);
