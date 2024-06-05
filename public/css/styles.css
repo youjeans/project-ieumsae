@@ -6,7 +6,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f0f0f0;
+    background: #fac4cf;
 }
 
 .logo {
@@ -20,33 +20,179 @@ body {
 
 .container {
     display: flex;
-    width: 80%;
-    max-width: 1200px;
-    background-color: #ffffff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+    position: relative;
+    width: 70%; /* 가장 큰 사각형의 너비 */
+    height: 500px; /* 모든 사각형의 높이 */
+    background-color: rgba(255, 255, 255, 0.5);
+    border: #ffffff;
+    border-radius: 40px;
     overflow: hidden;
 }
 
-.profile-section {
-    width: 30%;
-    padding: 20px;
-    background-color: #f8f9fa;
+.box1, .box2, .box3 {
+    height: 100%; /* 모든 사각형의 세로 길이를 동일하게 설정 */
+    border-radius: 40px;
+    position: absolute;
+    left: 0;
+}
+
+.box1 {
+    width: 100%; /* 가장 큰 사각형 */
+    background-color: #e97da4;
+    z-index: 1; /* 가장 아래에 위치 */
+
+    /* Flexbox를 사용하여 내용 세로 가운데 정렬 */
+    display: flex; /* Flex 컨테이너로 설정 */
+    justify-content: flex-end; /* 수평 끝(우측) 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+    
+}
+
+.box1-content {
+    display: flex;
+    flex-direction: column; /* 요소들을 세로로 정렬 */
+    align-items: center;
+    padding-right: 2%;
+}
+
+.box1-content i{
+    margin: 15px 0;
+}
+
+.box2 {
+    width: 94%; /* 중간 크기의 사각형 */
+    background-color: #fdefef;
     text-align: center;
-    border-right: 1px solid #ddd;
+    z-index: 2; /* 중간에 위치 */
+
+    /* Flexbox를 사용하여 내용 세로 가운데 정렬 */
+    display: flex; /* Flex 컨테이너로 설정 */
+    justify-content: center; /* 수평 가운데 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+
+    position: relative; /* 자식 요소의 절대 위치 설정을 위한 상대 위치 설정 */
+}
+
+.box2-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 25%;
+    position: relative;
+
+    width: 75%;
+
+    position: absolute; /* 절대 위치 설정 */
+    top: 0; /* box2의 위쪽과 동일하게 설정 */
+
+
+}
+
+.box2-content2 {
+    display: flex; /* Flexbox로 설정 */
+    flex-direction: row; /* 가로 방향으로 요소들을 배치 */
+    align-items: center; /* 수직 가운데 정렬 */
+    justify-content: space-between; /* 요소들을 가로 방향으로 분산 */
+    width: 100%;
+    padding: 10px 30px; /* 패딩 추가 */
+    box-sizing: border-box; /* 패딩 포함한 크기 설정 */
+
+    position: absolute; /* 절대 위치 설정 */
+    top: 10px; /* box2-content의 위쪽과 동일하게 설정 */
+}
+
+.diary-container {
+    display: flex;
+    margin-top: 10%;
+    flex-wrap: wrap; /* 넘칠 경우 다음 줄로 이동하도록 설정 */
+    justify-content: flex-start;
+    width: 100%; /* 컨테이너 전체 너비 사용 */
+}
+
+.diary {
+    width: 20%; /* 일기가 한 줄에 3개씩 보이도록 너비를 조정합니다 */
+    margin: 10px; /* 각 일기 요소 사이의 간격을 조정합니다 */
+    position: relative; /* 위치 설정을 위해 relative 사용 */
+}
+
+.diary-img {
+    width: 100%; /* 이미지가 부모 요소의 너비에 맞게 조정됩니다 */
+    height: auto; /* 이미지의 높이는 가로 비율에 맞게 조정됩니다 */
+    cursor: pointer;
+    object-fit: contain; /* 이미지를 부모 요소에 맞추되 원래 비율을 유지합니다 */
+}
+
+.diary-name {
+    position: absolute; /* 부모 요소를 기준으로 위치를 설정합니다 */
+    top: 110%; /* 부모 요소의 중앙에 위치하도록 설정합니다 */
+    left: 50%; /* 부모 요소의 중앙에 위치하도록 설정합니다 */
+    font-size: 10px;
+    transform: translate(-50%, -50%); /* 중앙에 위치하기 위해 좌표를 보정합니다 */
+    color: palevioletred; /* 텍스트 색상을 설정합니다 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+}
+
+.intro {
+    color: #e97da4;
+}
+
+.hello {
+    margin-left: 10px;
+    font-size: 16px;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 100px;
+    overflow: hidden;
+    padding: 10px;
+    margin-right: 7%;
+    width: 50%;
+}
+
+.search-input {
+    border: none;
+    font-size: 16px;
+    outline: none;
+    flex: 1;
+}
+
+
+.box3 {
+    width: 20%; /* 가장 작은 사각형 */
+    background-color: #ffffff;
+    z-index: 3; /* 가장 위에 위치 */
+    text-align: center;
+    padding: 20px;
+    box-shadow: none;
+
+    /* Flexbox를 사용하여 내용 세로 가운데 정렬 */
+    display: flex; /* Flex 컨테이너로 설정 */
+    justify-content: center; /* 수평 가운데 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+}
+
+.box3-content{
+    display: block;
+    align-items: center;
+}
+
+
+
+.sidebar {
+    width: 80%;
+    background-color: #0056b3;
+
 }
 
 .profile-pic {
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     object-fit: cover;
-    margin-bottom: 20px;
-}
-
-.profile-section h2 {
-    margin: 10px 0;
-    font-size: 1.5rem;
+    margin-bottom: 10px;
 }
 
 .btn {
@@ -54,49 +200,42 @@ body {
     margin: 10px 10px;
     padding: 10px 20px;
     font-size: 1rem;
-    color: #ffffff;
-    background-color: #007bff;
+    color: #e97da4;
+    background-color: #ffffff;
     border: none;
-    border-radius: 5px;
+    border-radius: 25px;
     cursor: pointer;
+
+    transition: background-color 0.5s ease;
 }
 
 .btn:hover {
-    background-color: #0056b3;
+    background-color: #e97da4; /* 호버 시 배경색 변경 */
+    color: white;
 }
 
-.diary-section {
-    width: 70%;
-    padding: 20px;
-    overflow-x: auto; /* 가로 스크롤을 허용합니다 */
-    white-space: nowrap; /* 자식 요소들이 한 줄로 나열되도록 함 */
+
+
+.btn2 {
+    display: block; /* 버튼을 블록 요소로 설정하여 위아래로 배치 */
+    width: 150px; /* 버튼 너비 */
+    height: 50px; /* 버튼 높이 */
+    margin: 10px auto; /* 상하 여백과 가운데 정렬 */
+    background-color: white; /* 버튼 배경색 */
+    color: #e97da4; /* 버튼 텍스트 색 */
+    border: 2px solid #e97da4; 
+    
+    border-radius: 25px; /* 좌우로 완전히 둥근 모서리 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    font-size: 16px; /* 텍스트 크기 */
+    cursor: pointer; /* 커서 포인터 설정 */
+    transition: background-color 0.5s ease;
+    
 }
 
-.diary-container {
-    justify-content: flex-start; /* flex-start로 변경하여 가로로 나열되도록 함 */
-    display: flex; 
-    flex-wrap: nowrap;
-    width: 100%;
-    box-sizing: border-box;
-    padding: 10px;
-}
-
-.diary {
-    margin: 10px;
-    box-sizing: border-box;
-    position: relative;
-    overflow: hidden;
-    background-color: #ffffff;
-    height: 300px; /* 이미지의 고정 높이 설정 */
-    min-width: 30%; /* 최소 너비 지정 */
-}
-
-.diary-name {
-    position: absolute; /* 부모 요소를 기준으로 위치를 설정합니다 */
-    top: 50%; /* 부모 요소의 중앙에 위치하도록 설정합니다 */
-    left: 50%; /* 부모 요소의 중앙에 위치하도록 설정합니다 */
-    transform: translate(-50%, -50%); /* 중앙에 위치하기 위해 좌표를 보정합니다 */
-    color: palevioletred; /* 텍스트 색상을 설정합니다 */
+.btn2:hover {
+    background-color: #e97da4; /* 호버 시 배경색 변경 */
+    color: white;
 }
 
 header {
@@ -115,11 +254,15 @@ header {
 .notification-btn {
     position: relative;
     border: none;
+    background-color: #e97da4; /* 버튼 배경색 */
+    border-radius: 10px;
+    margin-left: 20px;
 }
 
 .notification-icon {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
+    padding: 10px;
 }
 
 .notification-count {
@@ -137,20 +280,3 @@ header {
     align-items: center;
 }
 
-.diary-collection {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: calc(100% - 40px);
-}
-
-.diary-img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%; /* 이미지의 가로 크기를 부모 요소의 150%로 설정합니다 */
-    height: 100%; /* 이미지의 높이는 가로 비율에 맞게 조정됩니다 */
-    z-index: 1;
-    cursor: pointer;
-    object-fit: contain; /* 이미지를 부모 요소에 맞추되 원래 비율을 유지합니다 */
-}

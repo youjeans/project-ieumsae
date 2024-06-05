@@ -5,21 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>이음새</title>
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
 </head>
 <body>
+    
 
     <% if (id) { %>
         <header>
             <img src="/img/logo.png" alt="로고" class="logo">
-            <button class="notification-btn" onclick="navigateToAlarm()">
-                <img src="/img/mailbox.png" alt="알림 아이콘" class="notification-icon">
-                <span class="notification-count"><%= count %></span>
-            </button>
-            <script>
-                function navigateToAlarm() {
-                    window.location.href = "/diaryAlarm";
-                }
-            </script>
+            
             <button class="btn" onclick="navigateToLogout()">로그아웃</button>
             <script>
                 function navigateToLogout() {
@@ -32,39 +26,60 @@
                     window.location.href = "/mypage";
                 }
             </script>
-            <button class="btn">마이페이지</button>
-        </header>
+
+            <button class="notification-btn" onclick="navigateToAlarm()">
+                <img src="/img/mailbox.png" alt="알림 아이콘" class="notification-icon">
+                <span class="notification-count"><%= count %></span>
+            </button>
+            <script>
+                function navigateToAlarm() {
+                    window.location.href = "/diaryAlarm";
+                }
+            </script>
+        </header> 
         <div class="container">
-            <div class="profile-section">
-                <img src="/img/default-profile" alt="프로필 사진" class="profile-pic">
+            <div class="box3">
+                <div class="box3-content">
+                <img src="/img/default-profile.png" alt="프로필 사진" class="profile-pic">
                 <h2><span id="username"><%= name %></span>님의 일기장</h2>
-                <button class="btn" onclick="navigateToList()">친구 관리</button>
+                <button class="btn2" onclick="navigateToList()">친구 관리</button>
                 <script>
                     function navigateToList() {
                         window.location.href = "/list";
                     }
                 </script>
-                <button class="btn" onclick="navigateToWriteDiary()">일기 쓰기</button>
+                <button class="btn2" onclick="navigateToWriteDiary()">일기 쓰기</button>
                 <script>
                     function navigateToWriteDiary() {
                         window.location.href = "/diary/form";
                     }
                 </script>
+                </div>
             </div>
     
-            <div class="diary-section">
-                <div class="diary-container">
-                    <div class="diary">
-                        <img src="/img/default-diary.png" alt="일기 노트" class="diary-img" id="diaryImage1" onclick="navigateToMy();">
-                        <div class="diary-name">
-                            <p><%= myname %></p>
+            <div class="box2">
+                <div class="box2-content">
+                    <div class="box2-content2">
+                        <p class="hello"><%= myname %> 님, 안녕하세요!</p>
+                        <div class="search-container">
+                            <i class="fa fa-search" aria-hidden="true" style="color: #ccc; margin-right: 30px;
+                            font-size: 20px;"></i>
+                            <input type="text" placeholder="검색 기능 개발 중..." class="search-input">
+                        </div>
+                    </div>
+                    <div class="diary-container">
+                        <div class="diary">
+                            <img src="/img/default-diary.png" alt="일기 노트" class="diary-img" id="diaryImage1" onclick="navigateToMy();">
+                            <div class="diary-name">
+                                <p>From. <%= myname %> 님</p>
+                            </div>
                         </div>
                     </div>
                     <% exchangePartners.forEach((partner) => { %>
                         <div class="diary">
                             <img src="/img/default-diary.png" alt="일기 노트" class="diary-img" id="diaryImage2" onclick="navigateToPartner(<%= partner.회원번호 %>);">
                             <div class="diary-name">
-                                <p><%= partner.이름 %></p>
+                                <p>From. <%= partner.이름 %> 님</p>
                             </div>       
                         </div>
                     <% }); %>
@@ -78,49 +93,64 @@
                     </script>
                 </div>
             </div>
+
+            <div class="box1">
+                <div class="box1-content">
+                    <i class="fa fa-envelope" aria-hidden="true" style="color: #fff; font-size: 15px;"></i>
+                    <i class="fa fa-users" aria-hidden="true" style="color: #fff; font-size: 15;"></i>
+                    <i class="fa fa-heart" aria-hidden="true" style="color: #fff; font-size: 15px;"></i>
+
+                </div>
+            </div>
+
         </div>
     <% } else { %>
         <header>
             <img src="/img/logo.png" alt="로고" class="logo">
-            <button class="notification-btn">
-                <img src="/img/mailbox.png" alt="알림 아이콘" class="notification-icon">
-            </button>
+            
             <button class="btn" onclick="navigateToLogin()">로그인</button>
             <script>
                 function navigateToLogin() {
                     window.location.href = "/login";
                 }
             </script>
+
+            <button class="notification-btn">
+                <img src="/img/mailbox.png" alt="알림 아이콘" class="notification-icon">
+            </button>
         </header>
         <div class="container">
-            <div class="profile-section">
+            <div class="box3">
+            <div class="box3-content">
                 <img src="/img/default-profile.png" alt="프로필 사진" class="profile-pic">
-                <h2>로그인이 필요합니다.</h2>
-                <button class="btn" onclick="navigateToSignUp()">회원가입</button>
+                <p>로그인이 필요합니다.</p>
+                <button class="btn2" onclick="navigateToSignUp()">회원가입</button>
                 <script>
                     function navigateToSignUp() {
                         window.location.href = "/signup";
                     }
                 </script>
-                <button class="btn" onclick="navigateToLogin()">로그인</button>
+                <button class="btn2" onclick="navigateToLogin()">로그인</button>
                 <script>
                     function navigateToLogin() {
                         window.location.href = "/login";
                     }
                 </script>
             </div>
+            </div>
     
-            <div class="diary-section">
-                <div class="diary-container">
-                    <div class="diary">
-                        <img src="/img/default-diary.png" alt="일기 노트" class="diary-img" id="diaryImage1">       
-                    </div>
-                    <div class="diary">
-                        <img src="/img/default-diary.png" alt="일기 노트" class="diary-img" id="diaryImage2">       
-                    </div>
-                    <div class="diary">
-                        <img src="/img/default-diary.png" alt="일기 노트" class="diary-img" id="diaryImage3">       
-                    </div>
+            <div class="box2">
+                <div class="box2-content">
+                    <p class="intro">로그인 후 이음새 서비스를 이용해 보세요!</p>
+                </div>
+            </div>
+
+            <div class="box1">
+                <div class="box1-content">
+                    <i class="fa fa-envelope" aria-hidden="true" style="color: #fff; font-size: 15px;"></i>
+                    <i class="fa fa-users" aria-hidden="true" style="color: #fff; font-size: 15;"></i>
+                    <i class="fa fa-heart" aria-hidden="true" style="color: #fff; font-size: 15px;"></i>
+
                 </div>
             </div>
         </div>
