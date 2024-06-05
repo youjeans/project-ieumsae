@@ -107,6 +107,8 @@ body {
     flex-wrap: wrap; /* 넘칠 경우 다음 줄로 이동하도록 설정 */
     justify-content: flex-start;
     width: 100%; /* 컨테이너 전체 너비 사용 */
+    flex-direction: row; /* 요소들이 좌측에서 우측으로 배치되도록 설정 */
+    white-space: nowrap; /* 자식 요소들이 한 줄로 나열되도록 함 */
 }
 
 .diary {

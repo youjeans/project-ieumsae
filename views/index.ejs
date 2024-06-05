@@ -74,7 +74,6 @@
                                 <p>From. <%= myname %> 님</p>
                             </div>
                         </div>
-                    </div>
                     <% exchangePartners.forEach((partner) => { %>
                         <div class="diary">
                             <img src="/img/default-diary.png" alt="일기 노트" class="diary-img" id="diaryImage2" onclick="navigateToPartner(<%= partner.회원번호 %>);">
@@ -91,6 +90,7 @@
                             window.location.href = "/diaryPage/" + partnerId;
                         }
                     </script>
+                </div>
                 </div>
             </div>
 
