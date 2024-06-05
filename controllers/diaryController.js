@@ -13,6 +13,9 @@ function renderForm(req, res) {
       console.error(err);
       return res.status(500).send('Error retrieving friend list');
     }
+    if (!friendInfo || friendInfo.length === 0) {
+      friendInfo = []; // 친구가 없을 경우 빈 배열로 초기화
+    }
 
     randModel.getUsersByUserIds([userId], (err, currentUser) => {
       if (err) {

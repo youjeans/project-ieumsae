@@ -12,7 +12,10 @@ function getFriendInfo(userId, callback) {
 
     // 친구의 사용자 번호를 저장할 배열
     const friendIds = results.map(row => row.친구_사용자_번호2);
-
+    if (friendIds.length === 0) {
+      return callback(null, []);
+    }
+    
     // 친구의 사용자 번호를 사용하여 이름을 가져오는 함수 호출
     randModel.getUsersByUserIds(friendIds, (err, friendInfo) => {
       if (err) {
