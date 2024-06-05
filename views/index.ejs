@@ -12,7 +12,12 @@
 
     <% if (id) { %>
         <header>
-            <img src="/img/logo.png" alt="로고" class="logo">
+            <img src="/img/logo.png" alt="로고" onclick="navigateToMain()" class="logo">
+            <script>
+                function navigateToMain() {
+                    window.location.href = "/";
+                }
+            </script>
             
             <button class="btn" onclick="navigateToLogout()">로그아웃</button>
             <script>
@@ -35,7 +40,6 @@
                     window.location.href = "/diaryAlarm";
                 }
             </script>
-        </header> 
         </header>
         <div class="container">
             <div class="box3">

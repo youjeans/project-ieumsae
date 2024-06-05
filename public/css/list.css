@@ -5,20 +5,42 @@
     font-family: Arial, sans-serif;
 }
 
+.logo {
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 200px;
+    height: auto;
+    z-index: 999;
+}
+
+header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 90%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    z-index: 999;
+}
+
+
 body {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f0f0f0;
+    background: #fac4cf;
 }
 
 .container {
-    width: 400px;
+    width: 600px;
     background-color: #fff;
     border: 1px solid #ccc;
     padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .header {
@@ -59,23 +81,28 @@ body {
     display: flex;
     align-items: center;
     flex-shrink: 1;
+    background-color: #fff;
+    border-radius: 100px;
 }
 
 .search-bar {
     width: 100%;
-    max-width: 200px;
-    padding: 5px;
-    border: 1px solid #ccc;
+    max-width: 300px;
+    padding: 10px;
+    border: 2px solid #e97da4;
     border-radius: 3px;
+    background-color: #fff;
+    border-radius: 100px;
 }
 
 .search-button {
-    padding: 5px;
+    padding: 10px;
+    width: 100px;
     margin-left: 5px;
     border: none;
-    background-color: #007BFF;
+    background-color: #e97da4;
     color: white;
-    border-radius: 3px;
+    border-radius: 15px;
     cursor: pointer;
 }
 
@@ -111,7 +138,7 @@ body {
 }
 
 .action-text {
-    padding: 5px 10px;
+    padding: 10px 10px;
     border: none;
     background-color: transparent;
     color: black;
@@ -122,10 +149,35 @@ body {
 
 .action-button {
     padding: 5px 10px;
-    border: none;
-    background-color: #007BFF;
-    color: white;
-    border-radius: 3px;
+    border: 2px solid #e97da4;
+    background-color: #fff;
+    color: #e97da4;
+    border-radius: 25px;
     cursor: pointer;
     font-size: 0.9em; /* 폰트 크기 줄이기 */
+    transition: background-color 0.5s ease;
+}
+
+.action-button:hover{
+    background-color: #e97da4;
+    color: white;
+}
+
+.btn {
+    display: inline-block;
+    margin: 10px 10px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #e97da4;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+
+    transition: background-color 0.5s ease;
+}
+
+.btn:hover {
+    background-color: #e97da4; /* 호버 시 배경색 변경 */
+    color: white;
 }
