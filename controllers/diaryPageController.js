@@ -2,11 +2,6 @@ const session = require('express-session');
 const database = require('../config/mysql');
 const transResult = require('../models/transResultModel');
 
-exports.displaySample = (req, res) => {
-    const data = "Hello!";
-    res.render('displaySample', {data});
-}
-
 // 나와의 일기 페이지를 보여준다.
 exports.displayMy = (req, res) => {
     // 로그인 중인지, 회원번호 접근 가능한지 확인
