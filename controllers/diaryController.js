@@ -94,7 +94,10 @@ async function handlePostForm(req, res) {
     } else if (isFriend) {
       교환유형 = 1; // 친구
     } else {
-      교환유형 = 2; // 기본적으로 랜덤 사용자로 설정
+      // 관심사가 같은 사용자가 없는 경우
+      console.log('No user with same interest found');
+      // 클라이언트에게 알림을 띄움
+      return res.status(400).send('<script>alert("랜덤으로 보낼 수 없습니다."); window.location="/";</script>');
     }
 
     console.log('Exchange Type:', 교환유형); // 디버깅: 교환유형 출력
