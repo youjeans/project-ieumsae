@@ -32,11 +32,11 @@
                     window.location.href = "/mypage";
                 }
             </script>
-            <button class="btn">마이페이지</button>
+            
         </header>
         <div class="container">
             <div class="profile-section">
-                <img src="/img/default-profile" alt="프로필 사진" class="profile-pic">
+                <img src="<%= userProfilePic ? userProfilePic + '?v=' + new Date().getTime() : '/img/default-profile.png' %>" alt="프로필 사진" class="profile-pic">
                 <h2><span id="username"><%= name %></span>님의 일기장</h2>
                 <button class="btn" onclick="navigateToList()">친구 관리</button>
                 <script>

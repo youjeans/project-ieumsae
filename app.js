@@ -1,9 +1,12 @@
+//app.js
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const db = require('./config/mysql');
+const multer = require('multer'); // multer 추가
+const fs = require('fs'); // 파일 시스템 모듈 추가
 
 // 라우터들 가져오기
 const userRoutes = require('./routes/userRoutes');
@@ -20,10 +23,14 @@ const mypageRoutes = require('./routes/mypageRoutes');
 const app = express();
 const port = process.env.PORT || 3000;
 
-// 정적 파일 제공 설정
-app.use(express.static(path.join(__dirname, 'public')));
+// 업로드 디렉토리 존재 확인 및 생성
+const uploadDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir);
+}
 
-// EJS를 템플릿 엔진으로 설정
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
@@ -43,12 +50,27 @@ app.use(session({
 app.use((req, res, next) => {
     res.locals.id = "";
     res.locals.name = "";
+    res.locals.userProfilePic = ""; // 기본값 설정
     if (req.session.member) {
         res.locals.id = req.session.member.아이디;
         res.locals.name = req.session.member.이름;
+        res.locals.userProfilePic = req.session.member.프로필사진경로;
     }
     next();
 });
+
+// multer 설정
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/');
+    },
+    filename: function (req, file, cb) {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
+    }
+});
+
+const upload = multer({ storage: storage });
 
 // 라우터 설정
 app.use('/api', userRoutes);
@@ -60,6 +82,28 @@ app.use('/diaryPage', diaryPageRouters);
 app.use('/diaryAlarm', diaryAlarmRouters);
 app.use('/diary', diaryRoutes);
 app.use('/mypage', mypageRoutes);
+
+
+
+// 프로필 사진 업로드 라우트 추가
+app.post('/mypage/uploadProfilePic', upload.single('profilePic'), (req, res) => {
+    if (!req.file) {
+        return res.status(400).json({ success: false, message: 'No file uploaded.' });
+    }
+
+    const userId = req.session.member.회원번호; // 세션에서 사용자 ID를 가져옴
+    const newProfilePicPath = `/uploads/${req.file.filename}`;
+
+    const query = 'UPDATE 사용자 SET 프로필사진경로 = ? WHERE 회원번호 = ?';
+    db.query(query, [newProfilePicPath, userId], (err, results) => {
+        if (err) {
+            console.error('Database query error:', err);
+            return res.status(500).json({ success: false, message: 'Database query error.' });
+        }
+
+        res.json({ success: true, newProfilePicPath: newProfilePicPath });
+    });
+});
 
 
 // 메인 페이지에서 책을 동적으로 증가시키기 위해 사용
@@ -75,9 +119,14 @@ app.use((req, res, next) => {
     }
 });
 
-// 기본 라우트
 app.get('/', (req, res) => {
-    res.render('index', {myname: req.myname, exchangePartners: req.exchangePartners, count: req.count});
+    const userProfilePic = res.locals.userProfilePic;
+    res.render('index', {
+        myname: req.myname,
+        exchangePartners: req.exchangePartners,
+        count: req.count,
+        userProfilePic: userProfilePic
+    });
 });
 
 

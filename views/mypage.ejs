@@ -1,3 +1,4 @@
+<!--mypage.ejs-->
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -19,14 +20,12 @@
 <body>
     <header>
         <img src="/img/logo.png" alt="로고" class="logo">
-
-            </button>
-            <button class="btn" onclick="navigateToHome()">홈</button>
-            <script>
-                function navigateToHome() {
-                    window.location.href = "/";
-                }
-            </script>
+        <button class="btn" onclick="navigateToHome()">홈</button>
+        <script>
+            function navigateToHome() {
+                window.location.href = "/";
+            }
+        </script>
         <button class="btn" onclick="navigateToDelete()">회원 탈퇴</button>
         <script>
             function navigateToDelete() {
@@ -36,7 +35,7 @@
     </header>
     <div class="container">
         <div class="profile-section">
-            <img src="/img/default-profile" alt="프로필 사진" class="profile-pic">
+            <img src="<%= userInfo.user_profile ? userInfo.user_profile + '?v=' + new Date().getTime() : '/img/default-profile.png' %>" alt="프로필 사진" class="profile-pic">
             <h2>마이페이지</h2>
             <button class="btn" onclick="navigateToPWupdate()">비밀번호 변경</button>
             <script>
@@ -44,6 +43,11 @@
                     window.location.href = "/mypage/pwUpdatePage";
                 }
             </script>
+            <!-- 프로필 사진 변경 버튼 및 폼 추가 -->
+            <button class="btn" onclick="document.getElementById('profilePicInput').click()">프로필 사진 변경</button>
+            <form id="profilePicForm" enctype="multipart/form-data" style="display:none;">
+                <input type="file" id="profilePicInput" name="profilePic" accept="image/*" onchange="uploadProfilePic()">
+            </form>
         </div>
         <div class="diary-section"> 
             <div class="diary-container">
@@ -57,7 +61,29 @@
                 </div>
             </div>
         </div>
-    
-    <script src="/js/script.js"></script>
+
+    <script>
+        function uploadProfilePic() {
+            const formData = new FormData(document.getElementById('profilePicForm'));
+            fetch('/mypage/uploadProfilePic', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('프로필 사진이 성공적으로 변경되었습니다!');
+                    // 이미지 소스 업데이트
+                    document.querySelector('.profile-pic').src = data.newProfilePicPath + '?v=' + new Date().getTime();
+                } else {
+                    alert('프로필 사진 변경에 실패했습니다.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('프로필 사진 변경 중 오류가 발생했습니다.');
+            });
+        }
+    </script>
 </body>
 </html>
