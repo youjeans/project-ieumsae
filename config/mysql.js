@@ -4,12 +4,13 @@ var db_info = {
     host: "localhost",
     port: "3306",
     user: "root",
-    password: "root",
+    password: "921204",
     database: "ieumsae",
 };
 
 var db;
 
+<<<<<<< HEAD
 function handleDisconnect() {
     db = mysql.createConnection(db_info); // MySQL 연결 생성
 
@@ -34,4 +35,6 @@ function handleDisconnect() {
 
 handleDisconnect();
 
+=======
+>>>>>>> 5cda8013a259410198743f287f07cfae3d713891
 module.exports = db;

@@ -7,13 +7,30 @@
     <link rel="stylesheet" href="/css/list.css">
 </head>
 <body>
+    <header>
+        <img src="/img/logo.png" alt="로고" onclick="navigateToMain()" class="logo">
+            <script>
+                function navigateToMain() {
+                    window.location.href = "/";
+                }
+            </script>
+        
+        <button class="btn" onclick="navigateToLogout()">로그아웃</button>
+        <script>
+            function navigateToLogout() {
+                window.location.href = "/login/logout";
+            }
+        </script>
+    </header>
+
     <div class="container">
+        <h1>친구 목록</h1>
         <div class="header">
             <div class="profile-pic" style="background-image: url('<%= profilePicPath %>');"></div>
             <div class="username">@<%= username %></div>
             <div class="search-container">
-                <input type="text" id="search-bar" class="search-bar" placeholder="검색창">
-                <button class="search-button" onclick="checkUserAndOpenPopup()">🔍</button>
+                <input type="text" id="search-bar" class="search-bar" placeholder="아이디를 검색하세요">
+                <button class="search-button" onclick="checkUserAndOpenPopup()">검색</button>
             </div>
         </div>
         <% if (idsAndInterests && idsAndInterests.length > 0) { %>
