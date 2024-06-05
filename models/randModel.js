@@ -1,4 +1,4 @@
-// userModel.js
+// randModel.js
 const mysql = require('mysql2');
 const connection = require('../config/mysql');
 
