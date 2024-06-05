@@ -3,7 +3,7 @@ var db_info = {
     host: "localhost",
     port: "3306",
     user: "root",
-    password: "root",
+    password: "khj63653362",
     database: "ieumsae",
 };
 
