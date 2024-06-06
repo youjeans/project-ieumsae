@@ -7,10 +7,10 @@ exports.getExchangeInfo = (req, res, next) => {
     }
 
     const userId = req.session.member.회원번호;
-    const exchangePartnersQuery = 'SELECT 작성자_번호, 수신자_번호, u1.이름 AS 작성자_이름, u2.이름 AS 수신자_이름 FROM 일기 JOIN 사용자 u1 ON 일기.작성자_번호 = u1.회원번호 JOIN 사용자 u2 ON 일기.수신자_번호 = u2.회원번호 WHERE (작성자_번호 = ? OR 수신자_번호 = ?) AND 일기_송신일 < NOW()';
+    const exchangePartnersQuery = 'SELECT 작성자_번호, 수신자_번호, u1.이름 AS 작성자_이름, u2.이름 AS 수신자_이름 FROM 일기 JOIN 사용자 u1 ON 일기.작성자_번호 = u1.회원번호 JOIN 사용자 u2 ON 일기.수신자_번호 = u2.회원번호 WHERE (작성자_번호 = ? OR 수신자_번호 = ?)'; // AND 일기_송신일 < NOW()
     const exchangePartnersValues = [userId, userId];
     
-    const exchangeCountQuery = 'SELECT COUNT(*) AS count FROM 일기교환기록 WHERE 조회여부 = 0 AND 수신자_번호 = ? AND 수신일시 < NOW()';
+    const exchangeCountQuery = 'SELECT COUNT(*) AS count FROM 일기교환기록 WHERE 조회여부 = 0 AND 수신자_번호 = ?'; // AND 수신일시 < NOW()
     const exchangeCountValues = [userId];
 
     database.query(exchangePartnersQuery, exchangePartnersValues, (err, partnersResult) => {
@@ -20,13 +20,16 @@ exports.getExchangeInfo = (req, res, next) => {
         }
 
         const exchangePartners = new Set();
+        const partnerIds = new Set();
 
         partnersResult.forEach(partner => {
-            if (partner.작성자_번호 !== userId) {
+            if (partner.작성자_번호 !== userId && !partnerIds.has(partner.작성자_번호)) {
                 exchangePartners.add({회원번호: partner.작성자_번호, 이름: partner.작성자_이름});
+                partnerIds.add(partner.작성자_번호);
             }
-            if (partner.수신자_번호 !== userId) {
+            if (partner.수신자_번호 !== userId && !partnerIds.has(partner.수신자_번호)) {
                 exchangePartners.add({회원번호: partner.수신자_번호, 이름: partner.수신자_이름});
+                partnerIds.add(partner.수신자_번호);
             }
         });
 
