@@ -14,36 +14,117 @@
       flex-direction: column;
       min-height: 100vh;
       margin: 0;
+      background-color: #fac4cf;
     }
 
-    .write-container {
-      width: 90%;
-      margin: 0 auto; /* 가운데 정렬 */
-      font-size: 20px;
+        .btn {
+        display: inline-block;
+        margin: 10px 10px;
+        padding: 10px 20px;
+        font-size: 1rem;
+        color: #e97da4;
+        background-color: #ffffff;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+
+        transition: background-color 0.5s ease;
     }
 
-    h1 {
-      margin-top: 30px;
-      margin-bottom: 20px;
+    .btn:hover {
+        background-color: #e97da4; /* 호버 시 배경색 변경 */
+        color: white;
+    }
+
+    .logo {
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            width: 200px;
+            height: auto;
+            z-index: 999;
+        }
+
+        header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 90%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+            z-index: 999;
+        }
+
+        .write-container {
+          display: flex; /* Flex 컨테이너로 설정 */
+          flex-direction: column; /* 요소들을 세로로 정렬 */
+          align-items: flex-start;
+          position: relative;
+          width: 70%; /* 가장 큰 사각형의 너비 */
+          height: 500px; /* 모든 사각형의 높이 */
+          background-color: rgb(255, 255, 255);
+          border-radius: 40px;
+          overflow: hidden;
+          padding: 20px; /* 내부 여백 */
+          box-sizing: border-box; /* 패딩을 포함한 전체 너비 계산 */
+        }
+
+        .write-container h2,
+        .write-container form,
+        .write-container div,
+        .write-container textarea{
+          width: 100%; /* 컨테이너의 너비에 맞춤 */
+          box-sizing: border-box; /* 패딩을 포함한 전체 너비 계산 */
+        }
+
+    h2 {
+      color: #e97da4;
+      margin-bottom: 0px;
     }
 
     textarea {
       margin-bottom: 10px;
       width: 100%;
-      height: 800px;
-      font-size: 20px;
+      height: 340px;
+      font-size: 16px;
+      border: 2px solid #e97da4;
     }
 
+    .submit-container {
+      display: flex;
+      justify-content: flex-end; /* 오른쪽 정렬 */
+      width: 100%;
+    }
+    
     button[type="submit"] {
-      padding: 10px 20px;
-      font-size: 20px;
-      background-color: #007BFF;
-      color: white;
-      border: none;
-      cursor: pointer;
-      margin-top: 10px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content:center;
+      width: 100px;
+      height: 50px;
+      margin-right: 10px;
+      margin-left: 100px;
       margin-bottom: 10px;
-      margin-left: 5px;
+      border-radius: 25px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      border: none;
+
+      background-color: #e97da4; /* 버튼 배경색 */
+      color: #ffffff; /* 버튼 텍스트 색 */
+
+      transition: background-color 0.5s ease;
+
+    }
+
+    button[type="submit"]:hover{
+      background-color: #ffffff; /* 호버 시 배경색 변경 */
+      color: #e97da4;
     }
 
     .friend-select {
@@ -51,13 +132,70 @@
     }
 
     #친구목록 {
-      font-size: 20px;
-    }
+     width: 120px;
+     margin-top: 10px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      border: 2px solid #e97da4;
+      background-color: #ffffff;
+      border-radius: 25px;
+      box-sizing: border-box;
+}
 
     input[type="radio"] {
-      transform: scale(1.5); /* 숫자를 변경하여 크기 조절 */
-      margin-right: 5px;
+    display: none;
     }
+    p {
+      color:#e97da4;
+      font-size: 20px;
+      align-items: center;
+      margin-right: 15px;
+      font-weight: bold;
+
+    }
+
+    .custom-radio {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 40px;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border: 2px solid #e97da4;
+    color:#e97da4;
+    border-radius: 25px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #ffffff;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+.custom-radio:hover {
+  background-color: #fac4cf;
+}
+
+.custom-radio input[type="radio"]:checked + span {
+  background-color: #e97da4;
+  border-radius: 25px;
+  color: #ffffff;
+}
+
+.custom-radio span {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  box-sizing: border-box;
+}
 
     .back-link {
       position: fixed;
@@ -74,19 +212,43 @@
   </style>
 </head>
 <body>
+  <header>
+    <img src="/img/logo.png" alt="로고" onclick="navigateToMain()" class="logo">
+    <script>
+        function navigateToMain() {
+            window.location.href = "/";
+        }
+    </script>
+    
+    <button class="btn" onclick="navigateToMain()">홈</button>
+    <script>
+        function navigateToMain() {
+            window.location.href = "/";
+        }
+    </script>
+</header>
   <div class="write-container">
-    <h1>일기 쓰기</h1>
+
     <form action="/diary/postForm" method="post" name="getform">
-      <div>
-        <input type="radio" id="나" name="교환대상" value="<%= userId %>" checked>
-        <label for="나">나</label>
-        <input type="radio" id="랜덤" name="교환대상" value="<%= randomUser ? randomUser.회원번호 : '' %>">
-        <label for="랜덤">랜덤</label>
-        <input type="radio" id="친구" name="교환대상">
-        <label for="친구">친구</label>
+      <div class="radio-group">
+        <p> 받는 사람 </p>
+        <label for="나" class="custom-radio">
+          <input type="radio" id="나" name="교환대상" value="<%= userId %>" checked>
+          <span>나</span>
+        </label>
+    
+        <label for="랜덤" class="custom-radio">
+          <input type="radio" id="랜덤" name="교환대상" value="<%= randomUser ? randomUser.회원번호 : '' %>">
+          <span>랜덤</span>
+        </label>
+    
+        <label for="친구" class="custom-radio">
+          <input type="radio" id="친구" name="교환대상">
+          <span>친구</span>
+        </label>
         
         <select id="친구목록" name="교환대상_친구" disabled>
-          <option value="" disabled selected>친구들</option>
+          <option value="" disabled selected>친구 선택하기</option>
           <% if (friendInfo.length > 0) { %>
             <% friendInfo.forEach(friend => { %>
               <option value="<%= friend.회원번호 %>"><%= friend.이름 %></option>
@@ -95,13 +257,27 @@
             <option value="" disabled>친구 없음</option>
           <% } %>
         </select>
+        
       </div>
-      <div>
+      <div class="a">
+        <textarea id="일기_내용" name="일기_내용" 
+        placeholder="
+  교환 일기를 작성해 보세요!
+  나에게 보내기: 1년 뒤 오늘의 나에게 일기가 전달됩니다.
+  랜덤 사용자에게 보내기: 관심사가 같은 랜덤 사용자에게 일기가 전달됩니다.
+  친구에게 보내기: 선택한 친구에게 일기가 전달됩니다.        
+        
+  진솔한 감정을 담아 오늘의 일기를 작성해 보는 것은 어떨까요?" 
+        required maxlength="1000" style="resize: none;"></textarea>
+      </div>
+
+      <div class="submit-container">
         <button type="submit">전송</button>
-        <textarea id="일기_내용" name="일기_내용" required maxlength="1000" style="resize: none;"></textarea>
       </div>
+
     </form>
   </div>
+
 
   <script>
     document.getElementById('친구').addEventListener('change', function() {
