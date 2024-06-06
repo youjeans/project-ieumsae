@@ -11,7 +11,10 @@ exports.displayMy = (req, res) => {
     const query = 'SELECT 일기_송신일, 일기_내용 FROM 일기 WHERE 교환유형 = 0 AND 작성자_번호 = ? AND d.일기_송신일 < NOW()';
     const values = [req.session.member.회원번호];
     database.query(query, values, (err, result) => {
-        const transResultData = transResult(result);
+        const transResultData = [];
+        if (result && result.length > 0) {
+            transResultData = transResult(result);
+        }
         res.render('diaryMy', {result: transResultData});
     });
 };
