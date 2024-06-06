@@ -10,4 +10,5 @@ var db_info = {
 var db = mysql.createConnection(db_info);
 db.connect();
 
+
 module.exports = db;
