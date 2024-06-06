@@ -7,14 +7,53 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #fac4cf;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            padding: 0 20px;
         }
+        .logo {
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            width: 200px;
+            height: auto;
+            z-index: 999;
+        }
+
+        header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 90%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+            z-index: 999;
+        }
+        .btn {
+            display: inline-block;
+            margin: 10px 10px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: #e97da4;
+            background-color: #ffffff;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+
+            transition: background-color 0.5s ease;
+        }
+
+        .btn:hover {
+            background-color: #e97da4; /* 호버 시 배경색 변경 */
+            color: white;
+        }
+
         .delete-form {
             background-color: #fff;
             padding: 20px;
@@ -25,37 +64,69 @@
         }
         .delete-form h2 {
             margin-bottom: 20px;
+            color: #e97da4;
+            font-size: 15px;
+        }
+        p{
+            color: #767676;
+            font-size: 12px;
+            text-align: center;
         }
         .delete-form input {
             width: 100%;
             padding: 10px;
             margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            border: none;
+            border-bottom: 1px solid #dddbdb;
             box-sizing: border-box;
+            color: #767676;
         }
         .delete-form button {
             width: 100%;
             padding: 10px;
-            background-color: #dc3545;
+            background-color: #e97da4;
             color: #fff;
             border: none;
-            border-radius: 5px;
+            border-radius: 25px;
             cursor: pointer;
             box-sizing: border-box;
+            margin-bottom:20px;
+            transition: background-color 0.5s ease;
         }
         .delete-form button:hover {
-            background-color: #c82333;
+            background-color: #fff;
+            color: #e97da4;
         }
     </style>
 </head>
 <body>
-
+<header>
+        <img src="/img/logo.png" alt="로고" onclick="navigateToMain()" class="logo">
+        <script>
+            function navigateToMain() {
+                window.location.href = "/";
+            }
+        </script>
+        
+        <button class="btn" onclick="navigateToLogout()">로그아웃</button>
+            <script>
+                function navigateToLogout() {
+                    window.location.href = "/login/logout";
+                }
+            </script>
+            <button class="btn" onclick="navigateToMypage()">마이페이지</button>
+            <script>
+                function navigateToMypage() {
+                    window.location.href = "/mypage";
+                }
+            </script>
+    </header>
     <form class="delete-form" action="/signup/delete" method="post">
         <h2>회원탈퇴</h2>
         <input type="text" name="username" placeholder="아이디" required>
         <input type="password" name="password" placeholder="비밀번호" required>
         <input type="password" name="password2" placeholder="비밀번호 확인" required>
+        <p>회원 탈퇴 즉시 모든 정보가 삭제되며, <br> 복구가 불가능합니다.</p>
         <button type="submit">회원탈퇴</button>
     </form>
 
