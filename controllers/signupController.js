@@ -24,15 +24,19 @@ exports.signup = (req, res) => {
     if (username && hashedPassword && hashedPassword2) {        
         db.query('SELECT * FROM 사용자 WHERE 아이디 = ?', [username], function(error, results, fields) { // DB에 같은 이름의 회원아이디가 있는지 확인
             if (error) throw error;
-            if (results.length <= 0 && hashedPassword == hashedPassword2) {     // DB에 같은 이름의 회원아이디가 없고, 비밀번호가 올바르게 입력된 경우 
-                db.query('INSERT INTO 사용자 (아이디, 비밀번호, 이름, 성별, 나이, 이메일, 관심사, 해시) VALUES(?,?,?,?,?,?,?,?)', [username, hashedPassword, name, gender, age, email, interests, salt], function (error, data) {
-                    if (error) throw error;
-                    res.send(`<script type="text/javascript">alert("회원가입이 완료되었습니다!");
-                    document.location.href="/login";</script>`);
-                });
-            } else if (hashedPassword != hashedPassword2) {                     // 비밀번호가 올바르게 입력되지 않은 경우
-                res.send(`<script type="text/javascript">alert("입력된 비밀번호가 서로 다릅니다."); 
-                document.location.href="/signup";</script>`);    
+            if (results.length <= 0) {
+                if (hashedPassword === hashedPassword2) {
+                    db.query('SELECT COALESCE(MIN(a.회원번호 + 1), 1) AS next_available_id FROM 사용자 a LEFT JOIN 사용자 b ON a.회원번호 + 1 = b.회원번호 WHERE b.회원번호 IS NULL', function(error, nextAvailableId) {
+                        if (error) throw error;
+                        const next_id = nextAvailableId[0].next_available_id;
+                        db.query('INSERT INTO 사용자 (회원번호, 아이디, 비밀번호, 이름, 성별, 나이, 이메일, 관심사, 해시) VALUES(?,?,?,?,?,?,?,?,?)', [next_id,username, hashedPassword, name, gender, age, email, interests, salt], function (error, data) {
+                            if (error) throw error;
+                            res.send(`<script type="text/javascript">alert("회원가입이 완료되었습니다!"); document.location.href="/login";</script>`);
+                        });
+                    });
+                } else {
+                    res.send(`<script type="text/javascript">alert("입력된 비밀번호가 서로 다릅니다."); document.location.href="/signup";</script>`);    
+                }
             }
             else {                                                  // DB에 같은 이름의 회원아이디가 있는 경우
                 res.send(`<script type="text/javascript">alert("이미 존재하는 아이디 입니다."); 
@@ -89,10 +93,8 @@ exports.delete = (req, res) => {
                 }
                 req.session.member = null; // logout
                 res.send("<script>alert('회원탈퇴가 완료되었습니다.'); location.href='/';</script>");
-                
-                db.query('ALTER TABLE 사용자 AUTO_INCREMENT = 1');
-                db.query('SET @CNT=0');
-                db.query('UPDATE 사용자 SET 회원번호=@CNT:=@CNT+1');
+
+
             });
         });
     } else {
