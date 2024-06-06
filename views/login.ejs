@@ -7,12 +7,51 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
+            background-color: #fac4cf;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
+        }
+        .logo {
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            width: 200px;
+            height: auto;
+            z-index: 999;
+        }
+
+        header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 90%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+            z-index: 999;
+        }
+        .btn {
+            display: inline-block;
+            margin: 10px 10px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: #e97da4;
+            background-color: #ffffff;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+
+            transition: background-color 0.5s ease;
+        }
+
+        .btn:hover {
+            background-color: #e97da4; /* 호버 시 배경색 변경 */
+            color: white;
         }
         .login-container {
             background-color: #fff;
@@ -27,37 +66,45 @@
         }
         .login-container li {
             margin-bottom: 15px;
+            color: #767676;
+
         }
         .login-container input[type="text"],
         .login-container input[type="password"] {
             width: calc(100% - 22px);
             padding: 10px;
             margin-top: 5px;
-            border: 1px solid #ccc;
+            border: none;
+            border-bottom: 1px solid #dddbdb;
             border-radius: 3px;
         }
         .login-container button {
             width: 100%;
             padding: 10px;
-            background-color: #007BFF;
+            background-color: #e97da4;
+            color: #fff;
             border: none;
-            color: white;
-            border-radius: 3px;
+            border-radius: 25px;
             cursor: pointer;
+            box-sizing: border-box;
+            margin-bottom:20px;
+            transition: background-color 0.5s ease;
         }
         .login-container button:hover {
-            background-color: #0056b3;
+            background-color: #fff;
+            color: #e97da4;
         }
         .login-container h2 {
             margin: 0 0 15px;
-            font-size: 24px;
+            color: #e97da4;
+            font-size: 15px;
         }
         .login-container .links {
             display: flex;
             justify-content: space-between;
         }
         .login-container .links a {
-            color: #007BFF;
+            color: #e97da4;
             text-decoration: none;
             font-size: 14px;
         }
@@ -67,12 +114,27 @@
     </style>
 </head>
 <body>
+    <header>
+        <img src="/img/logo.png" alt="로고" onclick="navigateToMain()" class="logo">
+        <script>
+            function navigateToMain() {
+                window.location.href = "/";
+            }
+        </script>
+        
+        <button class="btn" onclick="navigateToSignUp()">회원가입</button>
+        <script>
+            function navigateToSignUp() {
+                window.location.href = "/signup";
+            }
+        </script>
+    </header>
     <div class="login-container">
-        <h2>Login</h2>
+    
         <form action="/login/proc" method="post">
             <ul>
-                <li>아이디 : <input type="text" name="아이디" required></li>
-                <li>비밀번호 : <input type="password" name="비밀번호" required></li>
+                <li>아이디  <input type="text" name="아이디" required></li>
+                <li>비밀번호  <input type="password" name="비밀번호" required></li>
                 <li><button type="submit">로그인</button></li>
             </ul>
         </form>
