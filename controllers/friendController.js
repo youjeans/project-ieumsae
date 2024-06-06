@@ -22,23 +22,31 @@ exports.addFriend = (req, res) => {
             return res.status(400).send("자기 자신을 친구로 추가할 수 없습니다.");
         }
 
-        const sqlCheck = 'SELECT * FROM 친구 WHERE (친구_사용자_번호1 = ? AND 친구_사용자_번호2 = ?)';
-        const valuesCheck = [user1, user2];
+        const sqlCheck = 'SELECT * FROM 친구 WHERE (친구_사용자_번호1 = ? AND 친구_사용자_번호2 = ?) OR (친구_사용자_번호1 = ? AND 친구_사용자_번호2 = ?)';
+        const valuesCheck = [user1, user2, user2, user1];
 
         db.query(sqlCheck, valuesCheck, (err, result) => {
             if (err) throw err;
             if (result.length > 0) {
                 return res.status(400).send("이미 친구로 추가된 사용자입니다.");
             } else {
-                const sqlInsert = 'INSERT INTO 친구 (친구_사용자_번호1, 친구_사용자_번호2, 친구추가일) VALUES (?, ?, NOW())';
-                const valuesInsert = [user1, user2];
-        
-                db.query(sqlInsert, valuesInsert, (err, result) => {
+                // 친구관계_번호의 최대값을 찾아서 1 증가시킨 값을 사용
+                const sqlMax = 'SELECT MAX(친구관계_번호) AS maxNumber FROM 친구';
+                db.query(sqlMax, (err, results) => {
                     if (err) throw err;
-                    res.status(200).send("친구가 성공적으로 추가되었습니다.");
+                    
+                    const maxNumber = results[0].maxNumber || 0; // 만약 친구관계_번호가 없으면 0으로 초기화
+                    const newNumber = maxNumber + 1;
+
+                    const sqlInsert = 'INSERT INTO 친구 (친구관계_번호, 친구_사용자_번호1, 친구_사용자_번호2, 친구추가일) VALUES (?, ?, ?, NOW())';
+                    const valuesInsert = [newNumber, user1, user2];
+
+                    db.query(sqlInsert, valuesInsert, (err, result) => {
+                        if (err) throw err;
+                        res.status(200).send("친구가 성공적으로 추가되었습니다.");
+                    });
                 });
             }
         });
-        
     });
 };
