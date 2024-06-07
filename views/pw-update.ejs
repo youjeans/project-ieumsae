@@ -8,35 +8,82 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #fac4cf;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             margin: 0;
-            padding: 0;
+        }
+        .logo {
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            width: 200px;
+            height: auto;
+            z-index: 999;
+        }
+
+        header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 90%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+            z-index: 999;
+        }
+        .btn {
+            display: inline-block;
+            margin: 10px 10px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: #e97da4;
+            background-color: #ffffff;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+
+            transition: background-color 0.5s ease;
+        }
+
+        .btn:hover {
+            background-color: #e97da4; /* 호버 시 배경색 변경 */
+            color: white;
         }
         .login-container {
-            max-width: 400px;
-            margin: 100px auto;
-            padding: 20px;
             background-color: #fff;
-            border-radius: 8px;
+            padding: 20px;
+            border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            box-sizing: border-box;
         }
         h2 {
-            text-align: center;
             margin-bottom: 20px;
+            color: #e97da4;
+            font-size: 15px;
         }
         form ul {
             list-style-type: none;
             padding: 0;
+            color: #767676;
+            font-size: 12px;
         }
         form li {
             margin-bottom: 15px;
         }
         form input[type="password"] {
-            width: calc(100% - 22px);
+            width: 100%;
             padding: 10px;
-            margin: 5px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            margin-bottom: 10px;
+            border: none;
+            border-bottom: 1px solid #dddbdb;
+            box-sizing: border-box;
+            color: #767676;
         }
         .btn-confirm {
             float: right;
@@ -49,22 +96,51 @@
             cursor: pointer;
         }
         .btn-save {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #007bff;
+            width: 100%;
+            padding: 10px;
+            background-color: #e97da4;
             color: #fff;
             border: none;
-            border-radius: 5px;
+            border-radius: 25px;
             cursor: pointer;
-            width: 100%;
-            margin-top: 10px;
+            box-sizing: border-box;
+
+            transition: background-color 0.5s ease;
         }
         .btn-confirm:hover, .btn-save:hover {
-            background-color: #0056b3;
+            background-color: #fff;
+            color: #e97da4;
         }
     </style>
 </head>
 <body>
+    <header>
+        <img src="/img/logo.png" alt="로고" onclick="navigateToMain()" class="logo">
+        <script>
+            function navigateToMain() {
+                window.location.href = "/";
+            }
+        </script>
+        
+        <button class="btn" onclick="navigateToMain()">홈</button>
+        <script>
+            function navigateToMain() {
+                window.location.href = "/";
+            }
+        </script>
+         <button class="btn" onclick="navigateToLogout()">로그아웃</button>
+         <script>
+             function navigateToLogout() {
+                 window.location.href = "/login/logout";
+             }
+         </script>
+          <button class="btn" onclick="navigateToMyPage()">마이페이지</button>
+          <script>
+              function navigateToMyPage() {
+                  window.location.href = "/mypage";
+              }
+          </script>
+    </header>
     <div class="login-container">
         <h2>비밀번호 변경</h2>
         <form action="/mypage/change-pw" method="post">

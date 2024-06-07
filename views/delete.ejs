@@ -108,18 +108,24 @@
             }
         </script>
         
-        <button class="btn" onclick="navigateToLogout()">로그아웃</button>
-            <script>
-                function navigateToLogout() {
-                    window.location.href = "/login/logout";
-                }
-            </script>
-            <button class="btn" onclick="navigateToMypage()">마이페이지</button>
-            <script>
-                function navigateToMypage() {
-                    window.location.href = "/mypage";
-                }
-            </script>
+        <button class="btn" onclick="navigateToMain()">홈</button>
+        <script>
+            function navigateToMain() {
+                window.location.href = "/";
+            }
+        </script>
+         <button class="btn" onclick="navigateToLogout()">로그아웃</button>
+         <script>
+             function navigateToLogout() {
+                 window.location.href = "/login/logout";
+             }
+         </script>
+          <button class="btn" onclick="navigateToMyPage()">마이페이지</button>
+          <script>
+              function navigateToMyPage() {
+                  window.location.href = "/mypage";
+              }
+          </script>
     </header>
     <form class="delete-form" action="/signup/delete" method="post">
         <h2>회원탈퇴</h2>

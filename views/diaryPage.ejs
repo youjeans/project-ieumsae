@@ -4,8 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>일기 페이지</title>
+    
     <style>
-        body {
+
+    @font-face {
+        font-family: 'KOTRAHOPE';
+        src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/KOTRAHOPE.woff2') format('woff2');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    body {
       font-family: Arial, sans-serif;
       display: flex;
       align-items: center;
@@ -60,20 +69,21 @@
           flex-direction: column; /* 요소들을 세로로 정렬 */
           align-items: flex-start;
           position: relative;
-          width: 70%; /* 가장 큰 사각형의 너비 */
+          width: 700px; /* 가장 큰 사각형의 너비 */
           height: 500px; /* 모든 사각형의 높이 */
           background-color: rgb(255, 255, 255);
           border-radius: 40px;
           padding: 30px; /* 내부 여백 */
           box-sizing: border-box; /* 패딩을 포함한 전체 너비 계산 */
           overflow: auto;
+          font-family: KOTRAHOPE, sans-serif;
         }
         p {
             color: #e97da4;
         }
         .divider {
             height: 2px; /* 선의 두께 */
-            width: 400px;
+            width: 640px;
             background-color: #ccc; /* 선의 색상 */
             margin: 20px 0; /* 위아래 마진 추가 */
         }
@@ -94,6 +104,18 @@
                 window.location.href = "/";
             }
         </script>
+         <button class="btn" onclick="navigateToLogout()">로그아웃</button>
+         <script>
+             function navigateToLogout() {
+                 window.location.href = "/login/logout";
+             }
+         </script>
+          <button class="btn" onclick="navigateToMyPage()">마이페이지</button>
+          <script>
+              function navigateToMyPage() {
+                  window.location.href = "/mypage";
+              }
+          </script>
     </header>
     <div class="diary-container">
         <% result.map(function(diary) { %>

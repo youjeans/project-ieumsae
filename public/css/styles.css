@@ -52,7 +52,9 @@ body {
     display: flex;
     flex-direction: column; /* 요소들을 세로로 정렬 */
     align-items: center;
-    padding-right: 2%;
+    padding-right: 1.5%;
+    position: fixed; /* 상단에 고정 */
+    top: 25%; /* 상단에 위치 */
 }
 
 .box1-content i{
@@ -77,14 +79,13 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-left: 25%;
+    margin-left: 30%;
     position: relative;
 
     width: 75%;
 
     position: absolute; /* 절대 위치 설정 */
     top: 0; /* box2의 위쪽과 동일하게 설정 */
-
 
 }
 
@@ -96,7 +97,6 @@ body {
     width: 100%;
     padding: 10px 30px; /* 패딩 추가 */
     box-sizing: border-box; /* 패딩 포함한 크기 설정 */
-
     position: absolute; /* 절대 위치 설정 */
     top: 10px; /* box2-content의 위쪽과 동일하게 설정 */
 }
@@ -107,8 +107,10 @@ body {
     flex-wrap: wrap; /* 넘칠 경우 다음 줄로 이동하도록 설정 */
     justify-content: flex-start;
     width: 100%; /* 컨테이너 전체 너비 사용 */
+    height: 400px;
     flex-direction: row; /* 요소들이 좌측에서 우측으로 배치되도록 설정 */
     white-space: nowrap; /* 자식 요소들이 한 줄로 나열되도록 함 */
+    overflow: auto;
 }
 
 .diary {
@@ -126,9 +128,10 @@ body {
 
 .diary-name {
     position: absolute; /* 부모 요소를 기준으로 위치를 설정합니다 */
-    top: 110%; /* 부모 요소의 중앙에 위치하도록 설정합니다 */
+    top: 105%; /* 부모 요소의 중앙에 위치하도록 설정합니다 */
     left: 50%; /* 부모 요소의 중앙에 위치하도록 설정합니다 */
     font-size: 10px;
+    margin-bottom: 10px;
     transform: translate(-50%, -50%); /* 중앙에 위치하기 위해 좌표를 보정합니다 */
     color: palevioletred; /* 텍스트 색상을 설정합니다 */
     text-align: center; /* 텍스트 가운데 정렬 */
@@ -136,6 +139,7 @@ body {
 
 .intro {
     color: #e97da4;
+    margin-top: 220px;
 }
 
 .hello {
@@ -282,3 +286,6 @@ header {
     align-items: center;
 }
 
+i:hover {
+    font-size: 25px !important;
+}
