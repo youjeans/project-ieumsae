@@ -14,6 +14,12 @@
     z-index: 999;
 }
 
+h2{
+    color: #e97da4;
+    margin-bottom: 10px;
+
+}
+
 header {
     position: absolute;
     top: 0;
@@ -39,7 +45,8 @@ body {
 .container {
     width: 600px;
     background-color: #fff;
-    border: 1px solid #ccc;
+    border: none;
+    border-radius: 25px;
     padding: 20px;
 }
 
@@ -93,6 +100,7 @@ body {
     border-radius: 3px;
     background-color: #fff;
     border-radius: 100px;
+    box-sizing: border-box;
 }
 
 .search-button {
@@ -104,6 +112,12 @@ body {
     color: white;
     border-radius: 15px;
     cursor: pointer;
+    transition: background-color 0.5s ease;
+}
+.search-button:hover{
+    background-color: #fff;
+    color:#e97da4;
+
 }
 
 .item {

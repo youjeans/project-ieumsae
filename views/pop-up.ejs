@@ -14,7 +14,7 @@
         </div>
         <div class="actions">
             <button class="action-button" onclick="addFriend('<%= username %>')">친구 추가</button>
-            <button class="action-button">그룹 초대</button>
+            <button class="action-button" onclick="addGroup()">그룹 초대</button>
         </div>
     </div>
     <script>
@@ -36,6 +36,9 @@
                 console.error('Error:', error);
                 alert('친구 추가 중 오류가 발생했습니다.');
             });
+        }
+        function addGroup(){
+            alert('기능 개발중입니다 :>');
         }
     </script>
 </body>
