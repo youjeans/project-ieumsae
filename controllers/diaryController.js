@@ -113,7 +113,8 @@ async function handlePostForm(req, res) {
         console.error(err);
         res.status(500).send('Error saving data');
       } else {
-        res.render('result', { data: req.body });
+        res.send("<script> alert('전송이 완료되었습니다.'); location.href='/';</script>"); 
+
       }
     });
 
