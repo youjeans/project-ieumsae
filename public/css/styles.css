@@ -128,7 +128,7 @@ body {
 
 .diary-name {
     position: absolute; /* 부모 요소를 기준으로 위치를 설정합니다 */
-    top: 105%; /* 부모 요소의 중앙에 위치하도록 설정합니다 */
+    top: 45%; /* 부모 요소의 중앙에 위치하도록 설정합니다 */
     left: 50%; /* 부모 요소의 중앙에 위치하도록 설정합니다 */
     font-size: 10px;
     margin-bottom: 10px;
