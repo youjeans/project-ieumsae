@@ -11,7 +11,7 @@ exports.displayMy = (req, res) => {
     const query = 'SELECT 일기_송신일, 일기_내용 FROM 일기 WHERE 교환유형 = 0 AND 작성자_번호 = ? AND d.일기_송신일 < NOW()';
     const values = [req.session.member.회원번호];
     database.query(query, values, (err, result) => {
-        const transResultData = [];
+        let transResultData = [];
         if (result && result.length > 0) {
             transResultData = transResult(result);
         }
@@ -39,7 +39,7 @@ exports.displayPage = (req, res) => {
             console.log('! diaryPageController.js 파일의 displayPage 함수에서 query 에러 발생함: ', err);
             return;
         }
-        const transResultData = transResult(result);
+        let transResultData = transResult(result);
         res.render('diaryPage', { result: transResultData });
     });
 };
