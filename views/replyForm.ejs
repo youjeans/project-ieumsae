@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>답장하기</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      min-height: 100vh;
+      margin: 0;
+      background-color: #fac4cf;
+    }
+
+        .btn {
+        display: inline-block;
+        margin: 10px 10px;
+        padding: 10px 20px;
+        font-size: 1rem;
+        color: #e97da4;
+        background-color: #ffffff;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+
+        transition: background-color 0.5s ease;
+    }
+
+    .btn:hover {
+        background-color: #e97da4; /* 호버 시 배경색 변경 */
+        color: white;
+    }
+
+    .logo {
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            width: 200px;
+            height: auto;
+            z-index: 999;
+        }
+
+        header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 90%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+            z-index: 999;
+        }
+
+        .write-container {
+          display: flex; /* Flex 컨테이너로 설정 */
+          flex-direction: column; /* 요소들을 세로로 정렬 */
+          align-items: flex-start;
+          position: relative;
+          width: 70%; /* 가장 큰 사각형의 너비 */
+          height: 500px; /* 모든 사각형의 높이 */
+          background-color: rgb(255, 255, 255);
+          border-radius: 40px;
+          overflow: hidden;
+          padding: 20px; /* 내부 여백 */
+          box-sizing: border-box; /* 패딩을 포함한 전체 너비 계산 */
+        }
+
+        .write-container h2,
+        .write-container form,
+        .write-container div,
+        .write-container textarea{
+          width: 100%; /* 컨테이너의 너비에 맞춤 */
+          box-sizing: border-box; /* 패딩을 포함한 전체 너비 계산 */
+        }
+
+    h2 {
+      color: #e97da4;
+      margin-bottom: 0px;
+    }
+
+    textarea {
+      margin-bottom: 10px;
+      width: 100%;
+      height: 340px;
+      font-size: 16px;
+      border: 2px solid #e97da4;
+    }
+
+    .submit-container {
+      display: flex;
+      justify-content: flex-end; /* 오른쪽 정렬 */
+      width: 100%;
+    }
+    
+    button[type="submit"] {
+
+      display: inline-flex;
+      align-items: center;
+      justify-content:center;
+      width: 100px;
+      height: 50px;
+      margin-right: 10px;
+      margin-left: 100px;
+      margin-bottom: 10px;
+      border-radius: 25px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      border: none;
+
+      background-color: #e97da4; /* 버튼 배경색 */
+      color: #ffffff; /* 버튼 텍스트 색 */
+
+      transition: background-color 0.5s ease;
+
+    }
+    p {
+      color:#e97da4;
+      font-size: 20px;
+      align-items: center;
+      margin-right: 15px;
+      font-weight: bold;
+
+    }
+
+    button[type="submit"]:hover{
+      background-color: #ffffff; /* 호버 시 배경색 변경 */
+      color: #e97da4;
+    }
+
+
+    .back-link {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      font-size: 18px;
+      text-decoration: none;
+      color: #007BFF;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="/img/logo.png" alt="로고" onclick="navigateToMain()" class="logo">
+    <script>
+        function navigateToMain() {
+            window.location.href = "/";
+        }
+    </script>
+    
+    <button class="btn" onclick="navigateToMain()">홈</button>
+        <script>
+            function navigateToMain() {
+                window.location.href = "/";
+            }
+        </script>
+         <button class="btn" onclick="navigateToLogout()">로그아웃</button>
+         <script>
+             function navigateToLogout() {
+                 window.location.href = "/login/logout";
+             }
+         </script>
+          <button class="btn" onclick="navigateToMyPage()">마이페이지</button>
+          <script>
+              function navigateToMyPage() {
+                  window.location.href = "/mypage";
+              }
+          </script>
+</header>
+  <div class="write-container">
+    <form action="/diary/sendReply" method="post">
+      <p>답장하기</p>
+      <input type="hidden" name="작성자_번호" value="<%= userId %>">
+      <input type="hidden" name="수신자_번호" value="<%= exchange %>"> 
+      <input type="hidden" name="교환유형" value="<%= exchangeType %>">
+        
+      <div class="a">
+        <textarea id="일기_내용" name="일기_내용" 
+        placeholder="
+  교환 일기에 대한 답장을 해보세요!" 
+        required maxlength="1000" style="resize: none;"></textarea>
+      </div>
+
+      <div class="submit-container">
+        <button type="submit">전송</button>
+      </div>
+
+    </form>
+  </div>
+</body>
+</html>
