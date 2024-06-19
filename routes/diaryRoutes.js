@@ -9,5 +9,9 @@ router.get('/', (req, res) => {
 router.get('/form', diaryController.renderForm);
 router.get('/getform', diaryController.handleGetForm);
 router.post('/postform', diaryController.handlePostForm);
+router.get('/reply', diaryController.renderReplyForm);
+router.post('/sendReply', diaryController.handleSendReply);
+
+
 
 module.exports = router;

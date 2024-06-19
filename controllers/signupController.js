@@ -26,7 +26,7 @@ exports.signup = (req, res) => {
             if (error) throw error;
             if (results.length <= 0) {
                 if (hashedPassword === hashedPassword2) {
-                    db.query('SELECT COALESCE(MIN(a.회원번호 + 1), 1) AS next_available_id FROM 사용자 a LEFT JOIN 사용자 b ON a.회원번호 + 1 = b.회원번호 WHERE b.회원번호 IS NULL', function(error, nextAvailableId) {
+                    db.query('SELECT COALESCE(MAX(a.회원번호) + 1, 1) AS next_available_id FROM 사용자 a;', function(error, nextAvailableId) {
                         if (error) throw error;
                         const next_id = nextAvailableId[0].next_available_id;
                         db.query('INSERT INTO 사용자 (회원번호, 아이디, 비밀번호, 이름, 성별, 나이, 이메일, 관심사, 해시) VALUES(?,?,?,?,?,?,?,?,?)', [next_id,username, hashedPassword, name, gender, age, email, interests, salt], function (error, data) {

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>일기 쓰기</title>
+  <title>답장하기</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -121,30 +121,6 @@
       transition: background-color 0.5s ease;
 
     }
-
-    button[type="submit"]:hover{
-      background-color: #ffffff; /* 호버 시 배경색 변경 */
-      color: #e97da4;
-    }
-
-    .friend-select {
-      display: none;
-    }
-
-    #친구목록 {
-     width: 120px;
-     margin-top: 10px;
-      margin-right: 10px;
-      margin-bottom: 10px;
-      border: 2px solid #e97da4;
-      background-color: #ffffff;
-      border-radius: 25px;
-      box-sizing: border-box;
-}
-
-    input[type="radio"] {
-    display: none;
-    }
     p {
       color:#e97da4;
       font-size: 20px;
@@ -154,49 +130,11 @@
 
     }
 
-    .custom-radio {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 100px;
-    height: 40px;
-    margin-top: 10px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    border: 2px solid #e97da4;
-    color:#e97da4;
-    border-radius: 25px;
-    text-align: center;
-    cursor: pointer;
-    background-color: #ffffff;
-    transition: background-color 0.3s, color 0.3s;
-  }
+    button[type="submit"]:hover{
+      background-color: #ffffff; /* 호버 시 배경색 변경 */
+      color: #e97da4;
+    }
 
-.custom-radio:hover {
-  background-color: #fac4cf;
-
-}
-
-.custom-radio input[type="radio"]:checked + span {
-  background-color: #e97da4;
-  border-radius: 25px;
-  color: #ffffff;
-}
-
-.custom-radio span {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.radio-group {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-  box-sizing: border-box;
-}
 
     .back-link {
       position: fixed;
@@ -241,46 +179,16 @@
           </script>
 </header>
   <div class="write-container">
-
-    <form action="/diary/postForm" method="post" name="getform">
-      <div class="radio-group">
-        <p> 받는 사람 </p>
-        <label for="나" class="custom-radio">
-          <input type="radio" id="나" name="수신자_번호" value="<%= userId %>" checked>
-          <span>나</span>
-        </label>
-    
-        <label for="랜덤" class="custom-radio">
-          <input type="radio" id="랜덤" name="수신자_번호" value="<%= randomUser ? randomUser.회원번호 : '' %>">
-          <span>랜덤</span>
-        </label>
-    
-        <label for="친구" class="custom-radio">
-          <input type="radio" id="친구" name="수신자_번호">
-          <span>친구</span>
-        </label>
+    <form action="/diary/sendReply" method="post">
+      <p>답장하기</p>
+      <input type="hidden" name="작성자_번호" value="<%= userId %>">
+      <input type="hidden" name="수신자_번호" value="<%= exchange %>"> 
+      <input type="hidden" name="교환유형" value="<%= exchangeType %>">
         
-        <select id="친구목록" name="수신자_번호_친구" disabled>
-          <option value="" disabled selected>친구 선택하기</option>
-          <% if (friendInfo.length > 0) { %>
-            <% friendInfo.forEach(friend => { %>
-              <option value="<%= friend.회원번호 %>"><%= friend.이름 %></option>
-            <% }); %>
-          <% } else { %>
-            <option value="" disabled>친구 없음</option>
-          <% } %>
-        </select>
-        
-      </div>
       <div class="a">
         <textarea id="일기_내용" name="일기_내용" 
         placeholder="
-  교환 일기를 작성해 보세요!
-  나에게 보내기: 1년 뒤 오늘의 나에게 일기가 전달됩니다.
-  랜덤 사용자에게 보내기: 관심사가 같은 랜덤 사용자에게 일기가 전달됩니다.
-  친구에게 보내기: 선택한 친구에게 일기가 전달됩니다.        
-        
-  진솔한 감정을 담아 오늘의 일기를 작성해 보는 것은 어떨까요?" 
+  교환 일기에 대한 답장을 해보세요!" 
         required maxlength="1000" style="resize: none;"></textarea>
       </div>
 
@@ -290,44 +198,5 @@
 
     </form>
   </div>
-
-
-  <script>
-    document.getElementById('친구').addEventListener('change', function() {
-      const 친구목록 = document.getElementById('친구목록');
-      친구목록.disabled = !this.checked;
-    });
-
-    document.getElementById('친구목록').addEventListener('change', function() {
-      const selectedValue = this.value;
-      document.querySelectorAll('input[name="수신자_번호"]').forEach((input) => {
-        input.value = selectedValue;
-      });
-    });
-
-    document.querySelectorAll('input[name="수신자_번호"]').forEach((input) => {
-      input.addEventListener('change', function() {
-        const isFriendSelected = document.getElementById('친구').checked;
-        const 친구목록 = document.getElementById('친구목록');
-        친구목록.disabled = !isFriendSelected;
-
-        if (this.value === '<%= userId %>') {
-          친구목록.value = this.value;
-        } else if (!isFriendSelected) {
-          document.querySelectorAll('input[name="수신자_번호"]').forEach((input) => {
-            input.value = this.value;
-          });
-        }
-      });
-    });
-
-    document.querySelector('button[type="submit"]').addEventListener('click', function(event) {
-      const selectElement = document.getElementById('친구목록');
-      if (selectElement.value === "" && selectElement.options[selectElement.selectedIndex].text === "친구들" && document.getElementById('친구').checked) {
-        alert("받을 사람을 선택해주세요.");
-        event.preventDefault(); // 전송을 중지
-      }
-    });
-  </script>
 </body>
 </html>

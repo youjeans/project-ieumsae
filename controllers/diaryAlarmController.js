@@ -16,7 +16,7 @@ exports.displayAlarm = (req, res) => {
             console.log('diaryAlarmController.js 의 displayAlarm 함수의 query에 에러 발생: ', err);
             return;
         }
-        const transResultDate = transResult(result);
+        let transResultDate = transResult(result);
         res.render('diaryAlarm', {result: transResultDate});
     });
 };
@@ -42,7 +42,7 @@ exports.displayPageId = (req, res) => {
             console.error('diaryAlarmController.js 의 displayPageId 함수의 query에 에러 발생: ', err);
             return;
         }
-        const transResultDate = transResult(result);
+        let transResultDate = transResult(result);
         res.render('diaryPageId', {result: transResultDate});
     });
 };

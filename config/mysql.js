@@ -24,4 +24,6 @@ db.connect((err) => {
 });
 
 // db 객체를 모듈로 내보내기
+
 module.exports = db;
+
