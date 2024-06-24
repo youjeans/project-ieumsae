@@ -3,7 +3,7 @@ var mysql = require('mysql2');
 
 // 환경 변수로부터 MySQL 접속 정보 설정
 var db_info = {
-    host: '34.22.93.225',
+    host: '34.64.222.89',
     port: "3306",
     user: 'ieumsae',
     password: 'ieumsaepwd',
