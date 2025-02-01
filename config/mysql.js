@@ -3,11 +3,11 @@ var mysql = require('mysql2');
 
 // 환경 변수로부터 MySQL 접속 정보 설정
 var db_info = {
-    host: '34.64.222.89',
+    host: 'localhost', // 또는 '127.0.0.1'
     port: "3306",
-    user: 'ieumsae',
-    password: 'ieumsaepwd',
-    database: 'ieumsae'
+    user: 'root', // MySQL의 로컬 사용자명 (기본값은 'root')
+    password: 'mypassword', // MySQL의 로컬 비밀번호 입력
+    database: 'ieumsae' // 사용할 데이터베이스명
 };
 
 // MySQL 연결 생성 및 연결
