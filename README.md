@@ -12,10 +12,10 @@
 > 김민주, 김수빈, 김현서, 김희주, 이유진, 조려하
 
 ### 개발 과정
-> - node.js와 html, css를 활용한 개발
+> node.js와 html, css를 활용한 개발
 
 ### 링크
-> - http://34.64.43.250:3000
+> http://34.64.43.250:3000
 
 ### 서비스 실행 메뉴얼
-> - http://naver.me/xcn3WE1F
+> http://naver.me/xcn3WE1F
