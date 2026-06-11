@@ -8,9 +8,14 @@ exports.displayMy = (req, res) => {
     if (!req.session.member || !req.session.member.회원번호) {
         return res.status(401).send("<script> alert('로그인이 필요합니다.'); location.href = '/login';</script>");
     }
-    const query = 'SELECT 일기_송신일, 일기_내용 FROM 일기 WHERE 교환유형 = 0 AND 작성자_번호 = ? AND d.일기_송신일 < NOW()';
+    const query = 'SELECT 일기_송신일, 일기_내용 FROM 일기 WHERE 교환유형 = 0 AND 작성자_번호 = ? AND 일기_송신일 < NOW()';
     const values = [req.session.member.회원번호];
     database.query(query, values, (err, result) => {
+        if (err) {
+            console.log('! diaryPageController.js 파일의 displayMy 함수에서 query 에러 발생함: ', err);
+            return;
+        }
+        
         let transResultData = [];
         if (result && result.length > 0) {
             transResultData = transResult(result);
